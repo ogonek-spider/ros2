@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	//pixi shell -e humble --manifest-path pixi-robostack;source install/local_setup.zsh
+	"settings": {
+		"terminal.integrated.env.osx": {
+		},
+		"terminal.integrated.profiles.osx": {
+			"ros2shell": {
+				"path": "pixi",
+				"args": ["shell", "-e", "humble", "--manifest-path", "pixi-robostack"]
+			}
+		},
+    	"terminal.integrated.defaultProfile.osx": "ros2shell",
+		//"ROS2.distro": "humble11212",
+		"ROS2.rosSetupScript": "./terminal_startup.zsh",
+		"ROS2.pixiRoot": "/"
+	},		
+}
