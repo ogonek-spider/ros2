@@ -14,7 +14,11 @@ find_package(sensor_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+include_directories(../../../libs/lib/twai_proto)
+
+add_library(twai_proto ../../../libs/lib/twai_proto/twai_proto.cpp)
 add_executable(motorcan src/motorcan.cpp)
+target_link_libraries(motorcan twai_proto)
 ament_target_dependencies(motorcan rclcpp std_msgs sensor_msgs)
 target_include_directories(motorcan PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

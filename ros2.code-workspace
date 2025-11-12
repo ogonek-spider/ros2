@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../libs/lib/twai_proto"
 		}
 	],
 	//pixi shell -e humble --manifest-path pixi-robostack;source install/local_setup.zsh
@@ -17,6 +20,10 @@
     	"terminal.integrated.defaultProfile.osx": "ros2shell",
 		//"ROS2.distro": "humble11212",
 		"ROS2.rosSetupScript": "./terminal_startup.zsh",
-		"ROS2.pixiRoot": "/"
+		"ROS2.pixiRoot": "/",
+		"files.associations": {
+			"string": "cpp",
+			"format": "cpp"
+		}
 	},		
 }

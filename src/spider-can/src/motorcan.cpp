@@ -1,10 +1,13 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
+#include "sensor_msgs/msg/joint_state.hpp"
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
 #include <cstring>
 #include <memory>
+
+#include "twai_proto.h"
 
 class SerialReaderNode : public rclcpp::Node
 {
@@ -27,7 +30,7 @@ public:
         }
 
         // Create publisher
-        serial_publisher_ = this->create_publisher<std_msgs::msg::String>("serial_data", 10);
+        publisher_ = this->create_publisher<sensor_msgs::msg::JointState>("/joint_states_read", 1);
 
         // Create reading thread
         read_thread_ = std::thread(&SerialReaderNode::readSerialThread, this);
@@ -104,6 +107,22 @@ private:
         return true;
     }
     
+    void decodeAndPostCanMessage(std::string msg) 
+    {    
+        CanMessage cMsg;
+        canMsgFromSlcan(msg.data(), cMsg);
+        switch (cMsg.type) {
+            case(MessageType::MOTOR_HEARTBEAT):
+                auto ros_msg = sensor_msgs::msg::JointState();
+                ros_msg.header.stamp = rclcpp::Clock().now();
+                ros_msg.name = {std::to_string(cMsg.address.legn) + "-" + std::to_string(cMsg.address.motorn)};
+                ros_msg.position = {cMsg.data.heartbeat.angle};
+                ros_msg.effort = {(double) cMsg.data.heartbeat.current/10.0};
+                publisher_->publish(ros_msg);
+                break;
+        }
+    }
+
     void readSerialThread()
     {
         std::string buffer;
@@ -124,9 +143,10 @@ private:
                         
                         if (!message.empty()) {
                             // Publish the message
-                            auto ros_msg = std_msgs::msg::String();
-                            ros_msg.data = message;
-                            serial_publisher_->publish(ros_msg);
+                            // auto ros_msg = std_msgs::msg::String();
+                            // ros_msg.data = message;
+                            // serial_publisher_->publish(ros_msg);
+                            decodeAndPostCanMessage(message);
                             
                             RCLCPP_DEBUG(this->get_logger(), "Received message: %s", message.c_str());
                         }
@@ -143,7 +163,7 @@ private:
     int serial_fd_;
     std::atomic<bool> running_{true};
     std::thread read_thread_;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr serial_publisher_;
+    rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr publisher_;
 };
 
 
