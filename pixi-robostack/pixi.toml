@@ -58,6 +58,8 @@ channels = ["https://prefix.dev/robostack-humble"]
 
 [feature.humble.dependencies]
 ros-humble-desktop = "*"
+ros-humble-joint-state-publisher-gui = "*"
+ros-humble-xacro = "*"
 
 ### ROS Jazzy ####
 [feature.jazzy]

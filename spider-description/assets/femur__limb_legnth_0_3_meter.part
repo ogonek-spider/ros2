@@ -1,0 +1,13 @@
+{
+    "configuration": "limb_legnth=0.3+meter",
+    "documentId": "238e8faca9c7214bccace665",
+    "documentMicroversion": "67a38207c0cbe7ae507174e0",
+    "elementId": "41c31adab06bc3d2020eeef7",
+    "fullConfiguration": "limb_legnth=0.3+meter",
+    "id": "MIEALlEXsFa22xsPv",
+    "isStandardContent": false,
+    "name": "femur <1>",
+    "partId": "JSD",
+    "suppressed": false,
+    "type": "Part"
+}
