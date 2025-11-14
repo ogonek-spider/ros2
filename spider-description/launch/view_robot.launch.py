@@ -17,6 +17,8 @@ def generate_launch_description():
     # If you are using Xacro, you can use this instead:
     # robot_desc = Command(['xacro ', urdf_path])
 
+    rviz_config_file = os.path.join(get_package_share_directory("spider-description"), "spider.rviz")
+
     return LaunchDescription([
         # Node to publish the robot's state (positions of all joints and links)
         Node(
@@ -40,6 +42,6 @@ def generate_launch_description():
             executable='rviz2',
             name='rviz2',
             output='screen',
-            arguments=["-d", 'spider.rviz'],
+            arguments=["-d", rviz_config_file],
         ),
     ])

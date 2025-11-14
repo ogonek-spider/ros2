@@ -1,13 +1,13 @@
 {
-    "configuration": "limb_legnth=0.4+meter",
+    "configuration": "limb_legnth=0.5+meter",
     "documentId": "238e8faca9c7214bccace665",
     "documentMicroversion": "888a63244ecdc6873c4187e9",
     "elementId": "41c31adab06bc3d2020eeef7",
-    "fullConfiguration": "limb_legnth=0.4+meter",
-    "id": "MNlwJFl+rPO2+YzZf",
+    "fullConfiguration": "limb_legnth=0.5+meter",
+    "id": "MdoVx5AIX0ds/5U4L",
     "isStandardContent": false,
-    "name": "femur <1>",
-    "partId": "JSD",
+    "name": "toe <1>",
+    "partId": "JYD",
     "suppressed": false,
     "type": "Part"
 }

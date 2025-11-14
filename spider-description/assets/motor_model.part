@@ -1,12 +1,12 @@
 {
     "configuration": "default",
     "documentId": "238e8faca9c7214bccace665",
-    "documentMicroversion": "40fbb707584712951a10701b",
+    "documentMicroversion": "888a63244ecdc6873c4187e9",
     "elementId": "47c45e3d07485ac3b7aff436",
     "fullConfiguration": "default",
-    "id": "MXVoYSg8+wtOXa8M2",
+    "id": "M1Dw8dkADihXsjtkS",
     "isStandardContent": false,
-    "name": "motor_model <2>",
+    "name": "motor_model <3>",
     "partId": "R0ED",
     "suppressed": false,
     "type": "Part"
