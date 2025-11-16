@@ -35,6 +35,40 @@ CallbackReturn SpiderHardwareInterface::on_cleanup(const rclcpp_lifecycle::State
     if (serial_fd_) {
         ::close(serial_fd_);
     }
+    return CallbackReturn::SUCCESS;
+}
+
+std::vector<hardware_interface::StateInterface> SpiderHardwareInterface::export_state_interfaces() {
+    std::vector<hardware_interface::StateInterface> state_interfaces;
+
+    for (size_t i = 0; i < info_.joints.size(); i++) {
+        state_interfaces.emplace_back(hardware_interface::StateInterface(
+            info_.joints[i].name,
+            hardware_interface::HW_IF_EFFORT,
+            &motors_[i].current_
+        ));
+        state_interfaces.emplace_back(hardware_interface::StateInterface(
+            info_.joints[i].name,
+            hardware_interface::HW_IF_POSITION,
+            &motors_[i].angle_
+        ));
+    }
+
+    return state_interfaces;
+}
+
+std::vector<hardware_interface::CommandInterface> SpiderHardwareInterface::export_command_interfaces() {
+    std::vector<hardware_interface::CommandInterface> command_interfaces;
+
+    for (size_t i = 0; i < info_.joints.size(); i++) {
+        command_interfaces.emplace_back(hardware_interface::CommandInterface(
+            info_.joints[i].name,
+            hardware_interface::HW_IF_POSITION,
+            &motors_[i].angle_setpoint_
+        ));
+    }
+
+    return command_interfaces;
 }
 
 bool SpiderHardwareInterface::setup_serial_port(const std::string& port, int baud_rate) {

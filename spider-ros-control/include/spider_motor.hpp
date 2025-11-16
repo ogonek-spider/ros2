@@ -9,11 +9,11 @@ struct SpiderMotor {
     uint8_t leg_id_;
     uint8_t motor_id_;
 
-    float angle_setpoint_ = NAN; // [rad]
-    float angle_ = NAN; // [rad]
-    float current_ = NAN;
+    double angle_setpoint_ = NAN; // [rad]
+    double angle_ = NAN; // [rad]
+    double current_ = NAN;
 
-    float last_angle_setpoint_ = NAN; // to not send each angle each tick  
+    double last_angle_setpoint_ = NAN; // to not send each angle each tick  
 
     void processMsg(CanMessage msg) {
         switch(msg.type) {
@@ -43,7 +43,7 @@ struct SpiderMotor {
                 .type = MessageType::SET_ANGLE,
                 .data = {
                     .angle = {
-                        .angle = angle_setpoint_
+                        .angle = (float) angle_setpoint_
                     }
                 }
             }
