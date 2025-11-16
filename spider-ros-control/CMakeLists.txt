@@ -7,9 +7,24 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
+ament_auto_find_build_dependencies()
+
+ament_export_dependencies(rosidl_default_runtime)
+
+include_directories(include
+../../libs/lib/twai_proto)
+
+add_library(twai_proto ../../libs/lib/twai_proto/twai_proto.cpp)
+link_libraries(twai_proto)
+ament_auto_add_library(
+  spider_ros_control SHARED
+  # ../odrive_base/src/epoll_event_loop.cpp
+  # ../odrive_base/src/socket_can.cpp
+  src/spider_hardware_interface.cpp
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

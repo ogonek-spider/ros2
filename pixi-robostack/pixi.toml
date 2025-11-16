@@ -60,6 +60,12 @@ channels = ["https://prefix.dev/robostack-humble"]
 ros-humble-desktop = "*"
 ros-humble-joint-state-publisher-gui = "*"
 ros-humble-xacro = "*"
+ros-humble-control-toolbox = "*"
+ros-humble-controller-manager = "*"
+ros-humble-rcpputils = "*"
+ros-humble-pluginlib = "*"
+ros-humble-rclcpp = "*"
+ros-humble-rclcpp-lifecycle = "*"
 
 ### ROS Jazzy ####
 [feature.jazzy]
@@ -74,3 +80,6 @@ channels = ["https://prefix.dev/robostack-kilted"]
 
 [feature.kilted.dependencies]
 ros-kilted-desktop = "*"
+
+[tasks]
+build = {cmd = "colcon build --symlink-install", inputs = ["."]}

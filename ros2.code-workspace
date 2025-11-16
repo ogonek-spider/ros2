@@ -23,7 +23,8 @@
 		"ROS2.pixiRoot": "/",
 		"files.associations": {
 			"string": "cpp",
-			"format": "cpp"
+			"format": "cpp",
+			"vector": "cpp"
 		}
 	},		
 }
