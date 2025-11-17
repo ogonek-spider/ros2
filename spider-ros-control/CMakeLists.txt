@@ -25,6 +25,20 @@ ament_auto_add_library(
   src/spider_hardware_interface.cpp
 )
 
+pluginlib_export_plugin_description_file(hardware_interface spider_hardware_interface.xml)
+
+target_compile_features(spider_ros_control PRIVATE cxx_std_20)
+
+install(TARGETS spider_ros_control
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+
+install(
+  DIRECTORY description/urdf config launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

@@ -4,8 +4,14 @@
 
 #include "spider_hardware_interface.hpp"
 
+using namespace spider_ros_control;
+
 using hardware_interface::CallbackReturn;
 using hardware_interface::return_type;
+
+rclcpp::Logger SpiderHardwareInterface::get_logger() {
+    return rclcpp::get_logger("SpiderHardwareInterface");
+}
 
 CallbackReturn SpiderHardwareInterface::on_init(const hardware_interface::HardwareInfo& info) {
     if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS) {
@@ -13,7 +19,6 @@ CallbackReturn SpiderHardwareInterface::on_init(const hardware_interface::Hardwa
     }
 
     serial_port_ = info_.hardware_parameters["serial_port"];
-    logger_ = rclcpp::get_logger("SpiderHardwareInterface");
 
     for (auto& joint : info_.joints) {
         motors_.emplace_back(std::stoi(joint.parameters.at("leg_id")), std::stoi(joint.parameters.at("motor_id")));
@@ -24,7 +29,7 @@ CallbackReturn SpiderHardwareInterface::on_init(const hardware_interface::Hardwa
 
 CallbackReturn SpiderHardwareInterface::on_configure(const rclcpp_lifecycle::State & previous_state) {
     if (!setup_serial_port(serial_port_, 0)) {
-        RCLCPP_ERROR(logger_, "Can't open serial port %s", serial_port_.data());
+        RCLCPP_ERROR(get_logger(), "Can't open serial port %s", serial_port_.data());
         return CallbackReturn::ERROR;
     }
     node_->declare_parameter("motor1.p_gain", 0.0);
@@ -74,22 +79,22 @@ std::vector<hardware_interface::CommandInterface> SpiderHardwareInterface::expor
 bool SpiderHardwareInterface::setup_serial_port(const std::string& port, int baud_rate) {
     serial_fd_ = open(port.c_str(), O_RDWR | O_NOCTTY | O_SYNC | O_NONBLOCK);
     if (serial_fd_ < 0) {
-        RCLCPP_ERROR(logger_, "Error opening %s: %s", port.c_str(), strerror(errno));
+        RCLCPP_ERROR(get_logger(), "Error opening %s: %s", port.c_str(), strerror(errno));
         return false;
     }
     struct termios tty;
     if (tcgetattr(serial_fd_, &tty) != 0) {
-        RCLCPP_ERROR(logger_, "Error getting termios attributes: %s", strerror(errno));
+        RCLCPP_ERROR(get_logger(), "Error getting termios attributes: %s", strerror(errno));
         return false;
     }
     // Set baud rate
     speed_t speed = B230400;
     if (cfsetospeed(&tty, speed) != 0) {
-        RCLCPP_ERROR(logger_, "Error setting cfsetospeed");
+        RCLCPP_ERROR(get_logger(), "Error setting cfsetospeed");
         return false;
     }
     if (cfsetispeed(&tty, speed) !=0) {
-        RCLCPP_ERROR(logger_, "Error setting cfsetispeed");
+        RCLCPP_ERROR(get_logger(), "Error setting cfsetispeed");
         return false;
     }
 
@@ -120,7 +125,7 @@ bool SpiderHardwareInterface::setup_serial_port(const std::string& port, int bau
     tty.c_cc[VTIME] = 1; // Timeout in deciseconds (0.1 seconds)
 
     if (tcsetattr(serial_fd_, TCSANOW, &tty) != 0) {
-        RCLCPP_ERROR(logger_, "Error setting termios attributes: %s", strerror(errno));
+        RCLCPP_ERROR(get_logger(), "Error setting termios attributes: %s", strerror(errno));
         return false;
     }
     tcflush(serial_fd_, TCIFLUSH);

@@ -24,7 +24,20 @@
 		"files.associations": {
 			"string": "cpp",
 			"format": "cpp",
-			"vector": "cpp"
+			"vector": "cpp",
+			"array": "cpp",
+			"memory": "cpp",
+			"limits": "cpp",
+			"locale": "cpp",
+			"mutex": "cpp",
+			"new": "cpp",
+			"optional": "cpp",
+			"ratio": "cpp",
+			"typeinfo": "cpp",
+			"unordered_map": "cpp",
+			"variant": "cpp",
+			"algorithm": "cpp",
+			"cmath": "cpp"
 		}
 	},		
 }
