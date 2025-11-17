@@ -3,13 +3,13 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="diffdrive_robot">
   <!-- <xacro:arg name="use_mock_hardware" default="false" /> -->
 
-  <xacro:include filename="$(find spider-description)/robot.urdf" />
+  <xacro:include filename="$(find spider_description)/robot.urdf" />
 
   <ros2_control name="Spider" type="system">
     <!-- <xacro:unless value="${use_mock_hardware}"> -->
     <hardware>
         <plugin>spider_ros_control/SpiderHardwareInterface</plugin>
-        <param name="serial_port">/dev/tty.usbmodem210</param>
+        <param name="serial_port">/dev/tty.usbmodem2101</param>
     </hardware>
     <!-- </xacro:unless> -->
     

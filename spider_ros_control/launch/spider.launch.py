@@ -36,7 +36,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("spider-ros-control"), "urdf", "spider.urdf.xacro"]
+                [FindPackageShare("spider_ros_control"), "urdf", "spider.urdf.xacro"]
             ),
 #            " ",
 #            "use_mock_hardware:=",
@@ -47,7 +47,7 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("spider-ros-control"),
+            FindPackageShare("spider_ros_control"),
             "config",
             "spider-controllers.yaml",
         ]
