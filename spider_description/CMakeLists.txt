@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(spider-description)
+project(spider_description)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -14,7 +14,7 @@ find_package(ament_cmake REQUIRED)
 # INSTALL
 install(
   DIRECTORY launch assets .
-  DESTINATION share/spider-description
+  DESTINATION share/spider_description
 )
 
 if(BUILD_TESTING)

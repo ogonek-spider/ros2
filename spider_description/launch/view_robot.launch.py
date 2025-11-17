@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
 
     urdf_path = os.path.join(
-        get_package_share_directory('spider-description'),  # Change to your package
+        get_package_share_directory('spider_description'),  # Change to your package
         'robot.urdf')
     
     with open(urdf_path, 'r') as infp:
@@ -17,7 +17,7 @@ def generate_launch_description():
     # If you are using Xacro, you can use this instead:
     # robot_desc = Command(['xacro ', urdf_path])
 
-    rviz_config_file = os.path.join(get_package_share_directory("spider-description"), "spider.rviz")
+    rviz_config_file = os.path.join(get_package_share_directory("spider_description"), "spider.rviz")
 
     return LaunchDescription([
         # Node to publish the robot's state (positions of all joints and links)
