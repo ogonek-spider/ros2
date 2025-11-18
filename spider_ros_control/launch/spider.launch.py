@@ -11,13 +11,13 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     # Declare arguments
     declared_arguments = []
-#    declared_arguments.append(
-#        DeclareLaunchArgument(
-#            "gui",
-#            default_value="true",
-#            description="Start RViz2 automatically with this launch file.",
-#        )
-#    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "gui",
+            default_value="true",
+            description="Start RViz2 automatically with this launch file.",
+        )
+    )
 #    declared_arguments.append(
 #        DeclareLaunchArgument(
 #            "use_mock_hardware",
@@ -27,7 +27,7 @@ def generate_launch_description():
 #    )
 
     # Initialize Arguments
-#    gui = LaunchConfiguration("gui")
+    gui = LaunchConfiguration("gui")
 #    use_mock_hardware = LaunchConfiguration("use_mock_hardware")
 
     # Get URDF via xacro
@@ -52,9 +52,9 @@ def generate_launch_description():
             "spider-controllers.yaml",
         ]
     )
-#    rviz_config_file = PathJoinSubstitution(
-#        [FindPackageShare("ros2_control_demo_description"), "diffbot/rviz", "diffbot.rviz"]
-#    )
+    # rviz_config_file = PathJoinSubstitution(
+    #     [FindPackageShare("ros2_control_demo_description"), "diffbot/rviz", "diffbot.rviz"]
+    # )
 
     control_node = Node(
         package="controller_manager",
@@ -74,14 +74,14 @@ def generate_launch_description():
         #     ("/botwheel_explorer/cmd_vel_unstamped", "/cmd_vel"),
         # ],
     )
-#    rviz_node = Node(
-#        package="rviz2",
-#        executable="rviz2",
-#        name="rviz2",
-#        output="log",
-#        arguments=["-d", rviz_config_file],
-#        condition=IfCondition(gui),
-#    )
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        output="log",
+    #    arguments=["-d", rviz_config_file],
+        condition=IfCondition(gui),
+    )
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
@@ -92,16 +92,16 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["spider", "--controller-manager", "/controller_manager"],
+        arguments=["spider_controller", "--controller-manager", "/controller_manager"],
     )
 
 #    # Delay rviz start after `joint_state_broadcaster`
-#    delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
-#        event_handler=OnProcessExit(
-#            target_action=joint_state_broadcaster_spawner,
-#            on_exit=[rviz_node],
-#        )
-#    )
+    delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=joint_state_broadcaster_spawner,
+            on_exit=[rviz_node],
+        )
+    )
 
     # Delay start of robot_controller after `joint_state_broadcaster`
     delay_robot_controller_spawner_after_joint_state_broadcaster_spawner = RegisterEventHandler(
@@ -115,8 +115,14 @@ def generate_launch_description():
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        #delay_rviz_after_joint_state_broadcaster_spawner,
+        delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        # robot_controller_spawner
+        Node(
+            package='joint_state_publisher_gui',
+            executable='joint_state_publisher_gui',
+            name='joint_state_publisher_gui'
+        ),        
     ]
 
     return LaunchDescription(declared_arguments + nodes)

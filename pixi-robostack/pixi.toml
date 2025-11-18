@@ -66,6 +66,8 @@ ros-humble-rcpputils = "*"
 ros-humble-pluginlib = "*"
 ros-humble-rclcpp = "*"
 ros-humble-rclcpp-lifecycle = "*"
+ros-humble-joint-state-broadcaster = "*"
+ros-humble-position-controllers = "*"
 
 ### ROS Jazzy ####
 [feature.jazzy]
@@ -79,7 +81,19 @@ ros-jazzy-desktop = "*"
 channels = ["https://prefix.dev/robostack-kilted"]
 
 [feature.kilted.dependencies]
+filelock = "*"
 ros-kilted-desktop = "*"
+ros-kilted-ros2-control-cmake = "*"
+ros-kilted-joint-state-publisher-gui = "*"
+ros-kilted-xacro = "*"
+ros-kilted-control-toolbox = "*"
+ros-kilted-controller-manager = "*"
+ros-kilted-rcpputils = "*"
+ros-kilted-pluginlib = "*"
+ros-kilted-rclcpp = "*"
+ros-kilted-rclcpp-lifecycle = "*"
+ros-kilted-joint-state-broadcaster = "*"
+ros-kilted-position-controllers = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}

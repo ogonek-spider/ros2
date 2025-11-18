@@ -1,6 +1,7 @@
 https://robostack.github.io/GettingStarted.html
 
-pixi shell -e humble
+pixi shell -e humble //not working ros2_control
+pixi shell -e kilted
 source install/local_setup.zsh 
 
 

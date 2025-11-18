@@ -26,7 +26,7 @@ class SpiderHardwareInterface : public hardware_interface::SystemInterface {
         return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;    
 
     private:
-        std::shared_ptr<rclcpp::Node> node_;
+        // std::shared_ptr<rclcpp::Node> node_;
         std::string serial_port_;
         std::vector<SpiderMotor> motors_;
         int serial_fd_ = 0;

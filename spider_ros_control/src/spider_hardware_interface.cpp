@@ -32,7 +32,7 @@ CallbackReturn SpiderHardwareInterface::on_configure(const rclcpp_lifecycle::Sta
         RCLCPP_ERROR(get_logger(), "Can't open serial port %s", serial_port_.data());
         return CallbackReturn::ERROR;
     }
-    node_->declare_parameter("motor1.p_gain", 0.0);
+    // node_->declare_parameter("motor1.p_gain", 0.0);
     return CallbackReturn::SUCCESS;
 }
 
