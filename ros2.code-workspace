@@ -14,7 +14,7 @@
 		"terminal.integrated.profiles.osx": {
 			"ros2shell": {
 				"path": "pixi",
-				"args": ["shell", "-e", "humble", "--manifest-path", "pixi-robostack"]
+				"args": ["shell", "-e", "kilted", "--manifest-path", "pixi-robostack"]
 			}
 		},
     	"terminal.integrated.defaultProfile.osx": "ros2shell",

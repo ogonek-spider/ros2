@@ -7,42 +7,42 @@
 
   <ros2_control name="Spider" type="system">
     <!-- <xacro:unless value="${use_mock_hardware}"> -->
-    <!-- <hardware>
+    <hardware>
         <plugin>spider_ros_control/SpiderHardwareInterface</plugin>
         <param name="serial_port">/dev/tty.usbmodem2101</param>
-    </hardware> -->
+    </hardware>
     <!-- </xacro:unless> -->
     
     <!-- <xacro:if value="${use_mock_hardware}">-->
-    <hardware>
+    <!-- <hardware>
         <plugin>mock_components/GenericSystem</plugin>
         <param name="calculate_dynamics">true</param>
-    </hardware>
+    </hardware> -->
     <!--</xacro:if> -->
 
     <joint name="1-1">
        <param name="leg_id">1</param>
        <param name="motor_id">1</param>
-       <command_interface name="position"/>
+       <!-- <command_interface name="position"/>
        <state_interface name="position">
           <param name="initial_value">0</param>
-       </state_interface>       
+       </state_interface>        -->
     </joint>
     <joint name="1-2">
        <param name="leg_id">1</param>
        <param name="motor_id">2</param>
-       <command_interface name="position"/>
+       <!-- <command_interface name="position"/>
        <state_interface name="position">
           <param name="initial_value">0</param>
-       </state_interface>       
+       </state_interface>        -->
     </joint>
     <joint name="1-3">
        <param name="leg_id">1</param>
        <param name="motor_id">3</param>
-       <command_interface name="position"/>
+       <!-- <command_interface name="position"/>
        <state_interface name="position">
           <param name="initial_value">0</param>
-       </state_interface>       
+       </state_interface>        -->
     </joint>
 
   </ros2_control>

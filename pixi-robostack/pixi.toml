@@ -94,6 +94,7 @@ ros-kilted-rclcpp = "*"
 ros-kilted-rclcpp-lifecycle = "*"
 ros-kilted-joint-state-broadcaster = "*"
 ros-kilted-position-controllers = "*"
+ros-kilted-ros2controlcli = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}

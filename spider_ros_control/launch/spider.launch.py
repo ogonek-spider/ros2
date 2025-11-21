@@ -52,9 +52,9 @@ def generate_launch_description():
             "spider-controllers.yaml",
         ]
     )
-    # rviz_config_file = PathJoinSubstitution(
-    #     [FindPackageShare("ros2_control_demo_description"), "diffbot/rviz", "diffbot.rviz"]
-    # )
+    rviz_config_file = PathJoinSubstitution(
+        [FindPackageShare("spider_ros_control"), "launch", "spider.rviz"]
+    )
 
     control_node = Node(
         package="controller_manager",
@@ -79,7 +79,7 @@ def generate_launch_description():
         executable="rviz2",
         name="rviz2",
         output="log",
-    #    arguments=["-d", rviz_config_file],
+        arguments=["-d", rviz_config_file],
         condition=IfCondition(gui),
     )
 
@@ -118,11 +118,11 @@ def generate_launch_description():
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         # robot_controller_spawner
-        Node(
-            package='joint_state_publisher_gui',
-            executable='joint_state_publisher_gui',
-            name='joint_state_publisher_gui'
-        ),        
+        # Node(
+        #     package='joint_state_publisher_gui',
+        #     executable='joint_state_publisher_gui',
+        #     name='joint_state_publisher_gui'
+        # ),        
     ]
 
     return LaunchDescription(declared_arguments + nodes)

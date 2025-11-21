@@ -10,7 +10,7 @@ struct SpiderMotor {
     uint8_t motor_id_;
 
     double angle_setpoint_ = NAN; // [rad]
-    double angle_ = NAN; // [rad]
+    double angle_ = 0; // [rad]
     double current_ = NAN;
 
     double last_angle_setpoint_ = NAN; // to not send each angle each tick  
