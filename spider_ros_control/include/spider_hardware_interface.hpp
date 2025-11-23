@@ -26,11 +26,12 @@ class SpiderHardwareInterface : public hardware_interface::SystemInterface {
         return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;    
 
     private:
-        // std::shared_ptr<rclcpp::Node> node_;
+        rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr param_callback_handle_;
         std::string serial_port_;
         std::vector<SpiderMotor> motors_;
         int serial_fd_ = 0;
 
+        rcl_interfaces::msg::SetParametersResult parametersCallback(const std::vector<rclcpp::Parameter> & parameters);
         bool setup_serial_port(const std::string& port, int baud_rate);
         rclcpp::Logger get_logger();        
 };

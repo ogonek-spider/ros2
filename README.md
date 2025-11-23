@@ -18,3 +18,8 @@ cp build/compile_commands.json .vscode
 https://cad.onshape.com/documents/238e8faca9c7214bccace665/w/ac168b104948c1f839976186/e/24599102151386cccc6b72ba?resourceType=resourceuserowner&nodeId=663350b99d750015af97830c
 
 onshape -> ros urdf https://onshape-to-robot.readthedocs.io/en/latest/design.html#workflow-overview
+
+
+# Used commands
+rqt -s rqt_reconfigure
+ros2 launch spider_ros_control spider.launch.py

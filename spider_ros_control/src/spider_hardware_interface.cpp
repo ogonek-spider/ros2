@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
+#include <format>
 
 #include "spider_hardware_interface.hpp"
 
@@ -32,7 +33,17 @@ CallbackReturn SpiderHardwareInterface::on_configure(const rclcpp_lifecycle::Sta
         RCLCPP_ERROR(get_logger(), "Can't open serial port %s", serial_port_.data());
         return CallbackReturn::ERROR;
     }
-    // node_->declare_parameter("motor1.p_gain", 0.0);
+
+    //FIXME: refactor bad place, bad architecure, should be motor command interface and controller
+    for (auto& mtr: motors_) {
+        for (auto& name: {"D", "I", "P"}) {
+            get_node()->declare_parameter<float>(std::format("{}_{}_{}", mtr.leg_id_, mtr.motor_id_, name), 0);
+        }
+    }    
+    param_callback_handle_ = get_node()->add_on_set_parameters_callback(
+        std::bind(&SpiderHardwareInterface::parametersCallback, this, std::placeholders::_1));
+
+
     return CallbackReturn::SUCCESS;
 }
 
@@ -167,10 +178,55 @@ return_type SpiderHardwareInterface::write(const rclcpp::Time & /*time*/, const 
     char buffer[256];
     size_t size;
     for (auto& motor : motors_) {
-        for (auto& msg: motor.getMsgsToSend()) {
+        if (motor.new_params_values) {
+            motor.new_params_values = false;
+
+            get_node()->set_parameter(rclcpp::Parameter(std::format("{}_{}_P", motor.leg_id_, motor.motor_id_), motor.P_));
+            get_node()->set_parameter(rclcpp::Parameter(std::format("{}_{}_I", motor.leg_id_, motor.motor_id_), motor.I_));
+            get_node()->set_parameter(rclcpp::Parameter(std::format("{}_{}_D", motor.leg_id_, motor.motor_id_), motor.D_));
+        }
+        auto msgs = motor.getMsgsToSend();
+        //RCLCPP_INFO(get_logger(), "Motor %d %d sending %zu commands", motor.leg_id_, motor.motor_id_, msgs.size());
+        for (auto& msg: msgs) {
             size = canMsgToSlcan(msg, buffer, 256);
+            RCLCPP_INFO(get_logger(), "Motor %d %d sending %s / %.2f", motor.leg_id_, motor.motor_id_, buffer, motor.angle_setpoint_);
             ::write(serial_fd_, buffer, size);
         }
     };
     return return_type::OK;
+}
+
+rcl_interfaces::msg::SetParametersResult SpiderHardwareInterface::parametersCallback(const std::vector<rclcpp::Parameter> & parameters) {
+       rcl_interfaces::msg::SetParametersResult result;
+    result.successful = true;
+
+    for (const auto & param : parameters) {
+        std::istringstream iss(param.get_name());
+
+        std::string value1, value2, value3;
+        uint8_t leg_id, motor_id;
+
+        if (std::getline(iss, value1, '_') &&
+            std::getline(iss, value2, '_') &&
+            std::getline(iss, value3)) {
+            
+            leg_id = static_cast<uint8_t>(std::stoi(value1));
+            motor_id = static_cast<uint8_t>(std::stoi(value2));
+
+            for(auto& motor : motors_) {
+                if (motor.leg_id_ == leg_id && motor.motor_id_ == motor_id) {
+                    if (value3 == "P") {
+                        motor.P_ = param.as_double();
+                    } else if (value3 == "I") {
+                        motor.I_ = param.as_double();
+                    } else if (value3 == "D") {
+                        motor.D_ = param.as_double();
+                    } else {
+                        RCLCPP_WARN(get_logger(), "Unknown parameter name: %s", param.get_name().data());
+                    }
+                }
+            }
+        }            
+    }
+    return result;
 }

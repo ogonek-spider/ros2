@@ -31,6 +31,10 @@ ninja = "*"
 # ROS specific tools
 rosdep = "*"
 colcon-common-extensions = "*"
+pyqtgraph = "*"
+qwt = "*"
+pythonqwt = "*"
+
 
 [target.linux.dependencies]
 libgl-devel = "*"
@@ -95,6 +99,7 @@ ros-kilted-rclcpp-lifecycle = "*"
 ros-kilted-joint-state-broadcaster = "*"
 ros-kilted-position-controllers = "*"
 ros-kilted-ros2controlcli = "*"
+ros-kilted-rqt-reconfigure = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}
