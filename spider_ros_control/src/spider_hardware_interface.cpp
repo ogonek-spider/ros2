@@ -144,27 +144,34 @@ bool SpiderHardwareInterface::setup_serial_port(const std::string& port, int bau
 }
 
 return_type SpiderHardwareInterface::read(const rclcpp::Time &time, const rclcpp::Duration &period) {
-    char buffer[256];
     ssize_t bytes_read;
-    uint16_t pos = 0;
     char ch;        
 
     if (serial_fd_ >= 0) {    
         while ((bytes_read = ::read(serial_fd_, &ch, 1)) > 0) {
-           if (ch == '\n' || ch == '\r' || pos >= sizeof(buffer) - 1) {
-                buffer[pos] = '\0';
-
-                // Process the complete line
-                CanMessage cMsg;
-                canMsgFromSlcan(buffer, cMsg);
+           if (ch == '\n' || ch == '\r' || serial_buffer_pos_ >= sizeof(serial_buffer_) - 1) {
+                serial_buffer_[serial_buffer_pos_] = '\0';
+                
+                CanMessage cMsg;                
+                if (!canMsgFromSlcan(serial_buffer_, cMsg)) {
+                    RCLCPP_WARN(get_logger(), "Failed to parse SLCAN message: %s", serial_buffer_);
+                    serial_buffer_pos_ = 0;
+                    continue;
+                }
+                                
+                if (cMsg.type != MessageType::MOTOR_HEARTBEAT) {
+                    char outbuf[256];
+                    canMsgToString(cMsg, outbuf, 256);
+                    RCLCPP_INFO(get_logger(), "Received: slcan %s, %s", serial_buffer_, outbuf);
+                }
                 for (auto& motor : motors_) {
                     if (cMsg.address.legn == motor.leg_id_ && cMsg.address.motorn == motor.motor_id_) {
                         motor.processMsg(cMsg);
                     }
                 }
-                pos = 0;
+                serial_buffer_pos_ = 0;
             } else {
-                buffer[pos++] = ch;
+                serial_buffer_[serial_buffer_pos_++] = ch;
             }
         }
     } else {
@@ -174,6 +181,13 @@ return_type SpiderHardwareInterface::read(const rclcpp::Time &time, const rclcpp
     return return_type::OK;
 }
 
+/**
+ * @brief Write function for SpiderHardwareInterface
+ * 
+ * Write function sends the commands to the motors through the serial port.
+ * It iterates over all the motors and sends the commands that are available.
+ * It also sets the parameters of the motors to the values that are requested.
+ */
 return_type SpiderHardwareInterface::write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)  {
     char buffer[256];
     size_t size;
@@ -189,7 +203,7 @@ return_type SpiderHardwareInterface::write(const rclcpp::Time & /*time*/, const 
         //RCLCPP_INFO(get_logger(), "Motor %d %d sending %zu commands", motor.leg_id_, motor.motor_id_, msgs.size());
         for (auto& msg: msgs) {
             size = canMsgToSlcan(msg, buffer, 256);
-            RCLCPP_INFO(get_logger(), "Motor %d %d sending %s / %.2f", motor.leg_id_, motor.motor_id_, buffer, motor.angle_setpoint_);
+            // RCLCPP_INFO(get_logger(), "Motor %d %d sending %s / %.2f", motor.leg_id_, motor.motor_id_, buffer, motor.angle_setpoint_);
             ::write(serial_fd_, buffer, size);
         }
     };

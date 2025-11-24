@@ -30,6 +30,8 @@ class SpiderHardwareInterface : public hardware_interface::SystemInterface {
         std::string serial_port_;
         std::vector<SpiderMotor> motors_;
         int serial_fd_ = 0;
+        char serial_buffer_[256];
+        size_t serial_buffer_pos_ = 0;
 
         rcl_interfaces::msg::SetParametersResult parametersCallback(const std::vector<rclcpp::Parameter> & parameters);
         bool setup_serial_port(const std::string& port, int baud_rate);
