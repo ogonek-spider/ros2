@@ -30,6 +30,7 @@ class SinPositionGenerator(Node):
         # Declare parameters with ranges and descriptions
         # self.declare_parameter('amplitude', 1.0)
         # self.declare_parameter('offset', 0.5)
+        self.declare_parameter('wavetype', 'sine') #[sine, square]
         self.declare_parameter('frequency', 0.05)
         self.declare_parameter('publish_rate', 50.0)
         self.declare_parameter('joint_to_control', '1-1')
@@ -56,6 +57,7 @@ class SinPositionGenerator(Node):
         # Get initial parameter values
         # self.amplitude = self.get_parameter('amplitude').value
         # self.offset = self.get_parameter('offset').value
+        self.wavetype = self.get_parameter('wavetype').value
         self.frequency = self.get_parameter('frequency').value
         self.publish_rate = self.get_parameter('publish_rate').value
         self.joint_to_control = self.get_parameter('joint_to_control').value
@@ -121,6 +123,9 @@ class SinPositionGenerator(Node):
             elif param.name == 'max_position':
                 self.max_position = param.value
                 self.get_logger().info(f"Max position updated to: {self.max_position}")
+            elif param.name == 'wavetype':
+                self.wavetype = param.value
+                self.get_logger().info(f"Wavetype updated to: {self.wavetype}")
         
         # Validate that the combination of amplitude and offset stays within min/max bounds
         calculated_min = self.offset - self.amplitude
@@ -137,7 +142,10 @@ class SinPositionGenerator(Node):
 
     def timer_callback(self):
         # Calculate sine wave value for the controlled joint
-        sine_value = self.amplitude * math.sin(self.phase) + self.offset
+        if self.wavetype == 'square':
+            sine_value = self.amplitude * (1.0 if math.sin(self.phase) >= 0 else -1.0) + self.offset
+        else: 
+            sine_value = self.amplitude * math.sin(self.phase) + self.offset
         
         # Clamp the value to the specified range
         controlled_joint_value = max(self.min_position, min(self.max_position, sine_value))
