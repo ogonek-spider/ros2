@@ -33,9 +33,9 @@ class SinPositionGenerator(Node):
         self.declare_parameter('wavetype', 'sine') #[sine, square]
         self.declare_parameter('frequency', 0.05)
         self.declare_parameter('publish_rate', 50.0)
-        self.declare_parameter('joint_to_control', '1-1')
-        self.declare_parameter('min_position', 1.5)
-        self.declare_parameter('max_position', 2.5)        
+        self.declare_parameter('joint_to_control', '1-2')
+        self.declare_parameter('min_position', 0.5)
+        self.declare_parameter('max_position', 2.5)
         
         # Set parameter descriptors for better rqt_reconfigure display
         # param_descriptors = [
@@ -119,9 +119,13 @@ class SinPositionGenerator(Node):
                     return SetParametersResult(successful=False, reason=f"Joint must be one of: {self.available_joints}")
             elif param.name == 'min_position':
                 self.min_position = param.value
+                self.amplitude = (self.max_position - self.min_position)/2
+                self.offset = (self.max_position + self.min_position)/2
                 self.get_logger().info(f"Min position updated to: {self.min_position}")
             elif param.name == 'max_position':
                 self.max_position = param.value
+                self.amplitude = (self.max_position - self.min_position)/2
+                self.offset = (self.max_position + self.min_position)/2                
                 self.get_logger().info(f"Max position updated to: {self.max_position}")
             elif param.name == 'wavetype':
                 self.wavetype = param.value
