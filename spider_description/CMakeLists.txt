@@ -13,7 +13,7 @@ find_package(ament_cmake REQUIRED)
 
 # INSTALL
 install(
-  DIRECTORY launch assets .
+  DIRECTORY launch urdf mujoco .
   DESTINATION share/spider_description
 )
 
