@@ -29,7 +29,7 @@ struct SpiderMotor {
         switch(msg.type) {
             case MessageType::MOTOR_HEARTBEAT:
                 angle_ = msg.data.heartbeat.angle;
-                current_ = msg.data.heartbeat.current;
+                current_ = msg.data.heartbeat.current / 10.0;
                 if (angle_setpoint_ == NAN) {
                     angle_setpoint_ = angle_;
                     last_angle_setpoint_ = angle_;
