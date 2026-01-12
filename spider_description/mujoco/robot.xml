@@ -1,0 +1,466 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/238e8faca9c7214bccace665/w/ac168b104948c1f839976186/e/ff38749d3c208be6e626a671 -->
+<mujoco model="mujoco">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <default>
+    <default class="mujoco">
+      <joint frictionloss="0.1" armature="0.005"/>
+      <position kp="50" dampratio="1"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom group="3"/>
+      </default>
+    </default>
+  </default>
+  <worldbody>
+    <!-- Link body_plate_deepseek -->
+    <body name="body_plate_deepseek" pos="0 0 0" quat="1 0 0 0" childclass="mujoco">
+      <freejoint name="body_plate_deepseek_freejoint"/>
+      <inertial pos="1.11336 0.853225 0.0761219" mass="47.3631" fullinertia="5.06065 5.7939 9.80398 0.0691027 0.600025 0.508519"/>
+      <!-- Part body_plate_deepseek -->
+      <geom type="mesh" class="visual" pos="1.12996 0.855548 0.210123" quat="0.996195 -0.0616284 0.0616284 -1.45095e-15" mesh="body_plate_deepseek" material="body_plate_deepseek_material"/>
+      <geom type="mesh" class="collision" pos="1.12996 0.855548 0.210123" quat="0.996195 -0.0616284 0.0616284 -1.45095e-15" mesh="body_plate_deepseek" material="body_plate_deepseek_material"/>
+      <!-- Part body_plate_deepseek_2 -->
+      <geom type="mesh" class="visual" pos="1.09534 0.820922 -0.0675932" quat="0.996195 -0.0616284 0.0616284 -1.45098e-15" mesh="body_plate_deepseek" material="body_plate_deepseek_material"/>
+      <geom type="mesh" class="collision" pos="1.09534 0.820922 -0.0675932" quat="0.996195 -0.0616284 0.0616284 -1.45098e-15" mesh="body_plate_deepseek" material="body_plate_deepseek_material"/>
+      <!-- Part motor_model -->
+      <geom type="mesh" class="visual" pos="0.748574 0.424161 0.0647124" quat="0.381227 -0.0805214 -0.0333531 -0.920364" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="0.748574 0.424161 0.0647124" quat="0.381227 -0.0805214 -0.0333531 -0.920364" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder -->
+      <geom type="mesh" class="visual" pos="0.76932 0.543902 0.156862" quat="0.326506 0.67438 -0.212631 0.627211" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="0.76932 0.543902 0.156862" quat="0.326506 0.67438 -0.212631 0.627211" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Part motor_model_2 -->
+      <geom type="mesh" class="visual" pos="1.45167 1.22726 -0.123084" quat="0.920364 -0.0333531 0.0805214 0.381227" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="1.45167 1.22726 -0.123084" quat="0.920364 -0.0333531 0.0805214 0.381227" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder_2 -->
+      <geom type="mesh" class="visual" pos="1.45745 1.13404 -0.00251511" quat="0.67438 -0.326506 -0.627211 -0.212631" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="1.45745 1.13404 -0.00251511" quat="0.67438 -0.326506 -0.627211 -0.212631" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Part motor_model_3 -->
+      <geom type="mesh" class="visual" pos="1.45786 0.418732 -0.0230463" quat="0.920364 -0.0805214 0.0333531 -0.381227" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="1.45786 0.418732 -0.0230463" quat="0.920364 -0.0805214 0.0333531 -0.381227" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder_3 -->
+      <geom type="mesh" class="visual" pos="1.36452 0.441109 0.0954683" quat="0.245984 -0.707733 -0.293153 -0.593858" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="1.36452 0.441109 0.0954683" quat="0.245984 -0.707733 -0.293153 -0.593858" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Part motor_model_4 -->
+      <geom type="mesh" class="visual" pos="0.742385 1.23269 -0.0353251" quat="0.381227 0.0333531 0.0805214 0.920364" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="0.742385 1.23269 -0.0353251" quat="0.381227 0.0333531 0.0805214 0.920364" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder_4 -->
+      <geom type="mesh" class="visual" pos="0.862253 1.23684 0.0588788" quat="0.707733 0.245984 -0.593858 0.293153" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="0.862253 1.23684 0.0588788" quat="0.707733 0.245984 -0.593858 0.293153" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Part motor_model_5 -->
+      <geom type="mesh" class="visual" pos="1.49852 0.872279 -0.0846647" quat="0.996195 -0.0616284 0.0616284 9.07769e-15" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="1.49852 0.872279 -0.0846647" quat="0.996195 -0.0616284 0.0616284 9.07769e-15" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder_5 -->
+      <geom type="mesh" class="visual" pos="1.43111 0.816693 0.0403372" quat="0.498097 -0.559726 -0.498097 -0.436469" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="1.43111 0.816693 0.0403372" quat="0.498097 -0.559726 -0.498097 -0.436469" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Part motor_model_6 -->
+      <geom type="mesh" class="visual" pos="0.700968 0.878383 0.0140146" quat="3.01863e-15 -0.0616284 -0.0616284 -0.996195" mesh="motor_model" material="motor_model_material"/>
+      <geom type="mesh" class="collision" pos="0.700968 0.878383 0.0140146" quat="3.01863e-15 -0.0616284 -0.0616284 -0.996195" mesh="motor_model" material="motor_model_material"/>
+      <!-- Part motor_holder_6 -->
+      <geom type="mesh" class="visual" pos="0.794904 0.960491 0.101731" quat="0.559726 0.498097 -0.436469 0.498097" mesh="motor_holder" material="motor_holder_material"/>
+      <geom type="mesh" class="collision" pos="0.794904 0.960491 0.101731" quat="0.559726 0.498097 -0.436469 0.498097" mesh="motor_holder" material="motor_holder_material"/>
+      <!-- Link 1brackets -->
+      <body name="1brackets" pos="0.742681 1.2304 -0.043323" quat="0.381227 0.0333531 0.0805214 0.920364">
+        <!-- Joint from body_plate_deepseek to 1brackets -->
+        <joint axis="0 0 1" name="1-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_7 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_7 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 -2.38295e-16 -3.50391e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 -2.38295e-16 -3.50391e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb -->
+        <body name="2limb" pos="0.229 0.113838 0.11355" quat="0.612372 0.612372 -0.353553 0.353553">
+          <!-- Joint from 1brackets to 2limb -->
+          <joint axis="0 0 1" name="1-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_8 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_8 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="2.35514e-16 -0.707107 0.707107 1.02056e-15" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="2.35514e-16 -0.707107 0.707107 1.02056e-15" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="1.32477e-15 -0.707107 -7.61937e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="1.32477e-15 -0.707107 -7.61937e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_2 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_2 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb -->
+          <body name="3limb" pos="0.669 0.000161803 0.22755" quat="3.71127e-16 -0.5 0.866025 8.86556e-16">
+            <!-- Joint from 2limb to 3limb -->
+            <joint axis="0 0 1" name="1-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_3 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 4.66121e-16 -0.707107 1.95509e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 4.66121e-16 -0.707107 1.95509e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_2 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 6.30149e-16 -0.707107 3.58226e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 6.30149e-16 -0.707107 3.58226e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_3 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 5.00595e-16 -0.707107 5.20529e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 5.00595e-16 -0.707107 5.20529e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+      <!-- Link 1brackets_2 -->
+      <body name="1brackets_2" pos="0.702046 0.877633 0.0078812" quat="8.8601e-17 0.0616284 0.0616284 0.996195">
+        <!-- Joint from body_plate_deepseek to 1brackets_2 -->
+        <joint axis="0 0 1" name="2-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_9 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r_4 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l_4 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_9 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 -2.75922e-16 -3.9191e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 -2.75922e-16 -3.9191e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb_2 -->
+        <body name="2limb_2" pos="0.229 0.113838 0.11355" quat="0.633034 0.633034 -0.315067 0.315067">
+          <!-- Joint from 1brackets_2 to 2limb_2 -->
+          <joint axis="0 0 1" name="2-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_10 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_10 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="2.18341e-16 0.707107 -0.707107 -1.79334e-15" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="2.18341e-16 0.707107 -0.707107 -1.79334e-15" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter_2 -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="1.29747e-15 -0.707107 3.48286e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="1.29747e-15 -0.707107 3.48286e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_5 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_5 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb_2 -->
+          <body name="3limb_2" pos="0.669 0.000161803 0.22755" quat="1.84843e-16 0.5 -0.866025 -1.26824e-15">
+            <!-- Joint from 2limb_2 to 3limb_2 -->
+            <joint axis="0 0 1" name="2-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_6 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_3 -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 -6.65449e-17 -0.707107 1.19364e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 -6.65449e-17 -0.707107 1.19364e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_4 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 1.27263e-17 -0.707107 1.2532e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 1.27263e-17 -0.707107 1.2532e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_6 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter_2 -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.73307e-16 -0.707107 9.38995e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.73307e-16 -0.707107 9.38995e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+      <!-- Link 1brackets_3 -->
+      <body name="1brackets_3" pos="0.74911 0.424697 0.058486" quat="0.381227 -0.0805214 -0.0333531 -0.920364">
+        <!-- Joint from body_plate_deepseek to 1brackets_3 -->
+        <joint axis="0 0 1" name="3-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_11 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r_7 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l_7 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_11 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 9.59503e-17 -1.20231e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 9.59503e-17 -1.20231e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb_3 -->
+        <body name="2limb_3" pos="0.229 0.113838 0.11355" quat="0.627211 0.627211 -0.326506 0.326506">
+          <!-- Joint from 1brackets_3 to 2limb_3 -->
+          <joint axis="0 0 1" name="3-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_12 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_12 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="5.88785e-17 -0.707107 0.707107 1.00093e-15" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="5.88785e-17 -0.707107 0.707107 1.00093e-15" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter_3 -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="1.18738e-15 -0.707107 -3.25177e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="1.18738e-15 -0.707107 -3.25177e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_8 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_8 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb_3 -->
+          <body name="3limb_3" pos="0.669 0.000161803 0.22755" quat="1.45282e-16 0.461749 -0.887011 -1.46509e-15">
+            <!-- Joint from 2limb_3 to 3limb_3 -->
+            <joint axis="0 0 1" name="3-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_9 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_5 -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 3.87617e-16 -0.707107 5.5207e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 3.87617e-16 -0.707107 5.5207e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_6 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 4.91189e-16 -0.707107 6.84712e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 4.91189e-16 -0.707107 6.84712e-16" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_9 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter_3 -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 2.60117e-16 -0.707107 6.46144e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 2.60117e-16 -0.707107 6.46144e-16" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+      <!-- Link 1brackets_4 -->
+      <body name="1brackets_4" pos="1.44966 1.22525 -0.128675" quat="0.920364 -0.0333531 0.0805214 0.381227">
+        <!-- Joint from body_plate_deepseek to 1brackets_4 -->
+        <joint axis="0 0 1" name="4-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_13 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r_10 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l_10 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_13 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 -4.90654e-17 -3.09156e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 -4.90654e-17 -3.09156e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb_4 -->
+        <body name="2limb_4" pos="0.229 0.113838 0.11355" quat="0.579228 0.579228 -0.40558 0.40558">
+          <!-- Joint from 1brackets_4 to 2limb_4 -->
+          <joint axis="0 0 1" name="4-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_14 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_14 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="6.37551e-16 0.707107 -0.707107 -3.84373e-16" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="6.37551e-16 0.707107 -0.707107 -3.84373e-16" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter_4 -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="1.17905e-16 -0.707107 3.14018e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="1.17905e-16 -0.707107 3.14018e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_11 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_11 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb_4 -->
+          <body name="3limb_4" pos="0.669 0.000161803 0.22755" quat="1.25828e-16 0.5 -0.866025 -5.06506e-17">
+            <!-- Joint from 2limb_4 to 3limb_4 -->
+            <joint axis="0 0 1" name="4-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_12 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_7 -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.73691e-15 -0.707107 -1.96705e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.73691e-15 -0.707107 -1.96705e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_8 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.57991e-15 -0.707107 -1.63413e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.57991e-15 -0.707107 -1.63413e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_12 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter_4 -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.88411e-15 -0.707107 -1.7961e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.88411e-15 -0.707107 -1.7961e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+      <!-- Link 1brackets_5 -->
+      <body name="1brackets_5" pos="1.49597 0.871556 -0.090349" quat="0.996195 -0.0616284 0.0616284 -1.41885e-15">
+        <!-- Joint from body_plate_deepseek to 1brackets_5 -->
+        <joint axis="0 0 1" name="5-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_15 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r_13 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l_13 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_15 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 1.0757e-15 -6.38717e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 1.0757e-15 -6.38717e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb_5 -->
+        <body name="2limb_5" pos="0.229 0.11596 0.11355" quat="0.589374 0.589374 -0.39069 0.39069">
+          <!-- Joint from 1brackets_5 to 2limb_5 -->
+          <joint axis="0 0 1" name="5-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_16 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_16 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="3.16402e-16 0.707107 -0.707107 -3.06542e-16" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="3.16402e-16 0.707107 -0.707107 -3.06542e-16" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter_5 -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="4.9832e-17 -0.707107 -1.11022e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="4.9832e-17 -0.707107 -1.11022e-16 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_14 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_14 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb_5 -->
+          <body name="3limb_5" pos="0.669 0.000161803 0.22755" quat="6.22276e-17 -0.5 0.866025 -9.08496e-17">
+            <!-- Joint from 2limb_5 to 3limb_5 -->
+            <joint axis="0 0 1" name="5-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_15 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_9 -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.71284e-15 -0.707107 -1.70402e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.71284e-15 -0.707107 -1.70402e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_10 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.59355e-15 -0.707107 -1.62057e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.59355e-15 -0.707107 -1.62057e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_15 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter_5 -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.81542e-15 -0.707107 -1.93385e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.81542e-15 -0.707107 -1.93385e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+      <!-- Link 1brackets_6 -->
+      <body name="1brackets_6" pos="1.45583 0.419288 -0.0289551" quat="0.920364 -0.0805214 0.0333531 -0.381227">
+        <!-- Joint from body_plate_deepseek to 1brackets_6 -->
+        <joint axis="0 0 1" name="6-1" type="hinge"/>
+        <inertial pos="0.168059 -0.000701417 0.11374" mass="9.53192" fullinertia="0.0951936 0.114814 0.105648 0.000389659 0.00030454 -1.35083e-06"/>
+        <!-- Part motor_model_17 -->
+        <geom type="mesh" class="visual" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <geom type="mesh" class="collision" pos="0.230829 0.107838 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_model" material="motor_model_material"/>
+        <!-- Part moving_frame_r_16 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+        <!-- Part moving_frame_l_16 -->
+        <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+        <!-- Part motor_holder_17 -->
+        <geom type="mesh" class="visual" pos="0.149 -0.000161803 0.04355" quat="0.707107 3.36098e-16 -2.89101e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <geom type="mesh" class="collision" pos="0.149 -0.000161803 0.04355" quat="0.707107 3.36098e-16 -2.89101e-16 -0.707107" mesh="motor_holder" material="motor_holder_material"/>
+        <!-- Link 2limb_6 -->
+        <body name="2limb_6" pos="0.229 0.113838 0.11355" quat="0.612372 0.612372 -0.353553 0.353553">
+          <!-- Joint from 1brackets_6 to 2limb_6 -->
+          <joint axis="0 0 1" name="6-2" type="hinge"/>
+          <inertial pos="0.440043 0.000124312 0.11325" mass="12.6805" fullinertia="0.0994568 0.894263 0.827447 -0.000175202 0.00208524 3.56385e-07"/>
+          <!-- Part motor_holder_18 -->
+          <geom type="mesh" class="visual" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <geom type="mesh" class="collision" pos="0.589 0.0701618 0.11355" quat="0.5 0.5 0.5 -0.5" mesh="motor_holder" material="motor_holder_material"/>
+          <!-- Part motor_model_18 -->
+          <geom type="mesh" class="visual" pos="0.670829 0.000161803 0.22155" quat="3.58579e-16 0.707107 -0.707107 -2.59274e-16" mesh="motor_model" material="motor_model_material"/>
+          <geom type="mesh" class="collision" pos="0.670829 0.000161803 0.22155" quat="3.58579e-16 0.707107 -0.707107 -2.59274e-16" mesh="motor_model" material="motor_model_material"/>
+          <!-- Part femur__limb_legnth_0_4_meter_6 -->
+          <geom type="mesh" class="visual" pos="0.562 0.000161803 0.11355" quat="1.22663e-16 -0.707107 4.59869e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <geom type="mesh" class="collision" pos="0.562 0.000161803 0.11355" quat="1.22663e-16 -0.707107 4.59869e-17 0.707107" mesh="femur__limb_legnth_0_4_meter" material="femur__limb_legnth_0_4_meter_material"/>
+          <!-- Part moving_frame_r_17 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+          <!-- Part moving_frame_l_17 -->
+          <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+          <!-- Link 3limb_6 -->
+          <body name="3limb_6" pos="0.669 0.000161803 0.22755" quat="2.11391e-16 -0.5 0.866025 1.3277e-16">
+            <!-- Joint from 2limb_6 to 3limb_6 -->
+            <joint axis="0 0 1" name="6-3" type="hinge"/>
+            <inertial pos="0.725894 0.000127285 0.113682" mass="13.7726" fullinertia="0.0610206 3.92373 3.8902 -0.000311098 0.0013154 1.50989e-07"/>
+            <!-- Part moving_frame_r_18 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11365" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_r" material="moving_frame_r_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_11 -->
+            <geom type="mesh" class="visual" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.66822e-15 -0.707107 -1.45464e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.202 0.000161803 0.11355" quat="0.707107 -1.66822e-15 -0.707107 -1.45464e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part femur__limb_legnth_0_5_meter_12 -->
+            <geom type="mesh" class="visual" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.55047e-15 -0.707107 -1.59998e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="0.662 0.000161803 0.11355" quat="0.707107 -1.55047e-15 -0.707107 -1.59998e-15" mesh="femur__limb_legnth_0_5_meter" material="femur__limb_legnth_0_5_meter_material"/>
+            <!-- Part moving_frame_l_18 -->
+            <geom type="mesh" class="visual" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <geom type="mesh" class="collision" pos="-0.08 0.07 0.11345" quat="0.5 0.5 0.5 -0.5" mesh="moving_frame_l" material="moving_frame_l_material"/>
+            <!-- Part toe__limb_legnth_0_5_meter_6 -->
+            <geom type="mesh" class="visual" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.80561e-15 -0.707107 -1.7688e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+            <geom type="mesh" class="collision" pos="1.222 0.000161803 0.11355" quat="0.707107 -1.80561e-15 -0.707107 -1.7688e-15" mesh="toe__limb_legnth_0_5_meter" material="toe__limb_legnth_0_5_meter_material"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <asset>
+    <mesh file="femur__limb_legnth_0_5_meter.stl"/>
+    <mesh file="toe__limb_legnth_0_5_meter.stl"/>
+    <mesh file="motor_holder.stl"/>
+    <mesh file="moving_frame_r.stl"/>
+    <mesh file="moving_frame_l.stl"/>
+    <mesh file="femur__limb_legnth_0_4_meter.stl"/>
+    <mesh file="body_plate_deepseek.stl"/>
+    <mesh file="motor_model.stl"/>
+    <material name="body_plate_deepseek_material" rgba="0.231373 0.380392 0.705882 1"/>
+    <material name="motor_model_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="motor_holder_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="moving_frame_r_material" rgba="0.647059 0.647059 0.647059 1"/>
+    <material name="moving_frame_l_material" rgba="0.647059 0.647059 0.647059 1"/>
+    <material name="femur__limb_legnth_0_4_meter_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="femur__limb_legnth_0_5_meter_material" rgba="0.615686 0.811765 0.929412 1"/>
+    <material name="toe__limb_legnth_0_5_meter_material" rgba="0.647059 0.647059 0.647059 1"/>
+  </asset>
+  <actuator>
+    <position class="mujoco" name="1-1" joint="1-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="1-2" joint="1-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="1-3" joint="1-3" kp="10000" kv="200"/>
+    <position class="mujoco" name="2-1" joint="2-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="2-2" joint="2-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="2-3" joint="2-3" kp="10000" kv="200"/>
+    <position class="mujoco" name="3-1" joint="3-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="3-2" joint="3-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="3-3" joint="3-3" kp="10000" kv="200"/>
+    <position class="mujoco" name="4-1" joint="4-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="4-2" joint="4-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="4-3" joint="4-3" kp="10000" kv="200"/>
+    <position class="mujoco" name="5-1" joint="5-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="5-2" joint="5-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="5-3" joint="5-3" kp="10000" kv="200"/>
+    <position class="mujoco" name="6-1" joint="6-1" kp="10000" kv="200"/>
+    <position class="mujoco" name="6-2" joint="6-2" kp="10000" kv="200"/>
+    <position class="mujoco" name="6-3" joint="6-3" kp="10000" kv="200"/>
+  </actuator>
+  <equality/>
+</mujoco>

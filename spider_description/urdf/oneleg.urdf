@@ -1,0 +1,301 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/238e8faca9c7214bccace665/w/ac168b104948c1f839976186/e/24599102151386cccc6b72ba -->
+<robot name="spider_description">
+  <!-- Link motor_holder -->
+  <link name="motor_holder">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <!-- Part motor_holder -->
+    <visual>
+      <origin xyz="-0.07 -0.027 1.38778e-17" rpy="-3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+      <material name="motor_holder_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.07 -0.027 1.38778e-17" rpy="-3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part motor_model -->
+    <visual>
+      <origin xyz="-1.38778e-17 -0.106278 -0.108" rpy="0 -0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+      <material name="motor_model_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-1.38778e-17 -0.106278 -0.108" rpy="0 -0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link moving_frame_l -->
+  <link name="moving_frame_l">
+    <inertial>
+      <origin xyz="0.166888 -0.000702224 0.11374" rpy="0 0 0"/>
+      <mass value="9.51769"/>
+      <inertia ixx="0.0949959" ixy="0.000393819" ixz="0.000302419" iyy="0.1134" iyz="-1.35219e-06" izz="0.10408"/>
+    </inertial>
+    <!-- Part motor_holder_2 -->
+    <visual>
+      <origin xyz="0.149 -0.000161803 0.04355" rpy="-1.4383e-16 -4.73317e-30 -1.5708"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+      <material name="motor_holder_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.149 -0.000161803 0.04355" rpy="-1.4383e-16 -4.73317e-30 -1.5708"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part motor_model_2 -->
+    <visual>
+      <origin xyz="0.228278 0.107838 0.11355" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+      <material name="motor_model_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.228278 0.107838 0.11355" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part moving_frame_r -->
+    <visual>
+      <origin xyz="-0.08 0.07 0.11365" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+      <material name="moving_frame_r_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.08 0.07 0.11365" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part moving_frame_l -->
+    <visual>
+      <origin xyz="-0.08 0.07 0.11345" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+      <material name="moving_frame_l_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.08 0.07 0.11345" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link moving_frame_l_2 -->
+  <link name="moving_frame_l_2">
+    <inertial>
+      <origin xyz="-0.00012427 -0.438975 -0.113249" rpy="0 0 0"/>
+      <mass value="12.6662"/>
+      <inertia ixx="0.888548" ixy="-0.000174694" ixz="3.56443e-07" iyy="0.0992591" iyz="0.00208744" izz="0.821886"/>
+    </inertial>
+    <!-- Part motor_model_3 -->
+    <visual>
+      <origin xyz="-0.000161803 -0.668278 -0.22155" rpy="-3.07249e-15 -2.42575e-15 -2.5235e-14"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+      <material name="motor_model_3_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.000161803 -0.668278 -0.22155" rpy="-3.07249e-15 -2.42575e-15 -2.5235e-14"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_model.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part femur__limb_legnth_0_4_meter -->
+    <visual>
+      <origin xyz="-0.000161803 -0.562 -0.11355" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/femur__limb_legnth_0_4_meter.stl"/>
+      </geometry>
+      <material name="femur__limb_legnth_0_4_meter_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.000161803 -0.562 -0.11355" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/femur__limb_legnth_0_4_meter.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part moving_frame_l_2 -->
+    <visual>
+      <origin xyz="-0.07 0.08 -0.11345" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+      <material name="moving_frame_l_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.07 0.08 -0.11345" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part moving_frame_r_2 -->
+    <visual>
+      <origin xyz="-0.07 0.08 -0.11365" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+      <material name="moving_frame_r_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.07 0.08 -0.11365" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part motor_holder_3 -->
+    <visual>
+      <origin xyz="-0.0701618 -0.589 -0.11355" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+      <material name="motor_holder_3_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0701618 -0.589 -0.11355" rpy="3.14159 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/motor_holder.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link moving_frame_l_3 -->
+  <link name="moving_frame_l_3">
+    <inertial>
+      <origin xyz="0.468863 0.00011439 0.113731" rpy="0 0 0"/>
+      <mass value="10.0269"/>
+      <inertia ixx="0.0561408" ixy="-0.000188903" ixz="0.000849629" iyy="1.36864" iyz="1.27622e-07" izz="1.33351"/>
+    </inertial>
+    <!-- Part moving_frame_r_3 -->
+    <visual>
+      <origin xyz="-0.08 0.07 0.11365" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+      <material name="moving_frame_r_3_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.08 0.07 0.11365" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_r.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part toe__limb_legnth_0_5_meter -->
+    <visual>
+      <origin xyz="0.682 0.000161803 0.11355" rpy="5.843e-28 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/toe__limb_legnth_0_5_meter.stl"/>
+      </geometry>
+      <material name="toe__limb_legnth_0_5_meter_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.682 0.000161803 0.11355" rpy="5.843e-28 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/toe__limb_legnth_0_5_meter.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part femur__limb_legnth_0_5_meter -->
+    <visual>
+      <origin xyz="0.662 0.000161803 0.11355" rpy="1.20737e-15 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/femur__limb_legnth_0_5_meter.stl"/>
+      </geometry>
+      <material name="femur__limb_legnth_0_5_meter_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.662 0.000161803 0.11355" rpy="1.20737e-15 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/femur__limb_legnth_0_5_meter.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part moving_frame_l_3 -->
+    <visual>
+      <origin xyz="-0.08 0.07 0.11345" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+      <material name="moving_frame_l_3_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.08 0.07 0.11345" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://spider_description/assets/moving_frame_l.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from moving_frame_l_2 to moving_frame_l_3 -->
+  <joint name="1-3" type="revolute">
+    <origin xyz="-0.000161803 -0.669 -0.22755" rpy="6.87867e-17 2.6966e-15 3.14159"/>
+    <parent link="moving_frame_l_2"/>
+    <child link="moving_frame_l_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="0" upper="3.14159"/>
+  </joint>
+  <!-- Joint from moving_frame_l to moving_frame_l_2 -->
+  <joint name="1-2" type="revolute">
+    <origin xyz="0.229 0.107838 0.11355" rpy="-1.5708 1.4383e-16 -3.64292e-16"/>
+    <parent link="moving_frame_l"/>
+    <child link="moving_frame_l_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-2.4869e-14" upper="3.14159"/>
+  </joint>
+  <!-- Joint from motor_holder to moving_frame_l -->
+  <joint name="1-1" type="revolute">
+    <origin xyz="-2.80687e-17 -0.107 -0.114" rpy="-6.07154e-16 1.44907e-19 -3.14159"/>
+    <parent link="motor_holder"/>
+    <child link="moving_frame_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="0" upper="3.14159"/>
+  </joint>
+</robot>
