@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "robostack"
 description = "Development environment for RoboStack ROS packages"
 channels = ["https://prefix.dev/conda-forge"]
@@ -37,7 +37,6 @@ pythonqwt = "*"
 
 libmujoco = "*"
 mujoco-simulate = "*"
-
 
 [target.linux.dependencies]
 libgl-devel = "*"
@@ -101,11 +100,11 @@ ros-kilted-rclcpp = "*"
 ros-kilted-rclcpp-lifecycle = "*"
 ros-kilted-joint-state-broadcaster = "*"
 ros-kilted-position-controllers = "*"
+ros-kilted-joint-trajectory-controller = "*"
 ros-kilted-ros2controlcli = "*"
 ros-kilted-rqt-reconfigure = "*"
 ros-kilted-foxglove-bridge = "*"
 ros-kilted-foxglove-msgs = "*"
-ros-kilted-joint-trajectory-controller = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}

@@ -25,3 +25,8 @@ onshape -> ros urdf https://onshape-to-robot.readthedocs.io/en/latest/design.htm
 # Used commands
 rqt -s rqt_reconfigure
 ros2 launch spider_ros_control spider.launch.py
+
+# Mujoco integration
+https://github.com/isri-aist/MujocoRosUtils/tree/main
+https://github.com/tenfoldpaper/mujoco_ros_pkgs/tree/wip_ros_control_humble
+https://github.com/moveit/mujoco_ros2_control/tree/main

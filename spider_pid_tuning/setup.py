@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'singen = spider_pid_tuning.sin_position_generator:main',
+            'multigen = spider_pid_tuning.multi_position_generator:main',
         ],
     },
 )
