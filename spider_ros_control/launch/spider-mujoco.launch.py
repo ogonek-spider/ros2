@@ -73,13 +73,13 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager", "--param-file", robot_controllers],
     )
 
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["spider_controller", "--controller-manager", "/controller_manager"],
+        arguments=["spider_controller", "--controller-manager", "/controller_manager", "--param-file", robot_controllers],
     )
 
     # Delay start of robot_controller after `joint_state_broadcaster`
@@ -96,7 +96,7 @@ def generate_launch_description():
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
         # delay_rviz_after_joint_state_broadcaster_spawner,
-        # delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         # robot_controller_spawner
         # Node(
         #     package='joint_state_publisher_gui',
