@@ -35,6 +35,9 @@ pyqtgraph = "*"
 qwt = "*"
 pythonqwt = "*"
 
+libmujoco = "*"
+mujoco-simulate = "*"
+
 
 [target.linux.dependencies]
 libgl-devel = "*"
@@ -102,6 +105,7 @@ ros-kilted-ros2controlcli = "*"
 ros-kilted-rqt-reconfigure = "*"
 ros-kilted-foxglove-bridge = "*"
 ros-kilted-foxglove-msgs = "*"
+ros-kilted-joint-trajectory-controller = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}

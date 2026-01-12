@@ -1,0 +1,4 @@
+[submodule "mujoco_ros2_control"]
+	path = mujoco_ros2_control
+	url = git@github.com:ogonek-spider/mujoco_ros2_control.git
+	branch = kilted

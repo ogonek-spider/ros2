@@ -4,6 +4,8 @@ pixi shell -e humble //not working ros2_control
 pixi shell -e kilted
 source install/local_setup.zsh 
 
+pixi search -c https://prefix.dev/robostack-kilted "*plugin*"
+
 
 inspired by https://github.com/odriverobotics/ros_odrive/tree/main
 https://control.ros.org/master/doc/ros2_control_demos/example_7/doc/userdoc.html#
