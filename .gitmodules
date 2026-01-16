@@ -2,3 +2,9 @@
 	path = mujoco_ros2_control
 	url = git@github.com:ogonek-spider/mujoco_ros2_control.git
 	branch = kilted
+[submodule "spider-walker/libs/urdf_parser_py"]
+	path = spider-walker/libs/urdf_parser_py
+	url = git@github.com:ros/urdf_parser_py.git
+[submodule "spider-walker/libs/kdl_parser_py"]
+	path = spider-walker/libs/kdl_parser_py
+	url = git@github.com:ros/kdl_parser_py.git

@@ -26,8 +26,6 @@ setup(
         'console_scripts': [
             'singen = spider_pid_tuning.sin_position_generator:main',
             'multigen = spider_pid_tuning.multi_position_generator:main',
-            'walker = spider_pid_tuning.spider_walker:main',
-            'ik = spider_pid_tuning.spider_inversekinematics_test:main',
         ],
     },
 )

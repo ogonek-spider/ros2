@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'spider-walker'
+package_name = 'spider_walker'
 
 setup(
     name=package_name,
@@ -24,6 +24,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'walker = spider_walker.spider_walker:main',
+            'ik = spider_walker.spider_inversekinematics_test:main',
         ],
     },
 )
