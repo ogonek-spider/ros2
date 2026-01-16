@@ -8,3 +8,9 @@
 [submodule "spider-walker/libs/kdl_parser_py"]
 	path = spider-walker/libs/kdl_parser_py
 	url = git@github.com:ros/kdl_parser_py.git
+[submodule "kdl_parser_py"]
+	path = kdl_parser_py
+	url = git@github.com:ros/kdl_parser_py.git
+[submodule "urdf_parser_py"]
+	path = urdf_parser_py
+	url = git@github.com:ros/urdf_parser_py.git
