@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'spider_pid_tuning'
+package_name = 'spider-walker'
 
 setup(
     name=package_name,
@@ -24,10 +24,6 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'singen = spider_pid_tuning.sin_position_generator:main',
-            'multigen = spider_pid_tuning.multi_position_generator:main',
-            'walker = spider_pid_tuning.spider_walker:main',
-            'ik = spider_pid_tuning.spider_inversekinematics_test:main',
         ],
     },
 )

@@ -105,6 +105,8 @@ ros-kilted-ros2controlcli = "*"
 ros-kilted-rqt-reconfigure = "*"
 ros-kilted-foxglove-bridge = "*"
 ros-kilted-foxglove-msgs = "*"
+ros-kilted-python-orocos-kdl-vendor = "*"
+ros-kilted-kdl-parser = "*"
 
 [tasks]
 build = {cmd = "colcon build --symlink-install", inputs = ["."]}
