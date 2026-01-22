@@ -1,40 +1,71 @@
 import rclpy
 from rclpy.node import Node
 import numpy as np
+from std_msgs.msg import String
 import PyKDL as kdl
+import time
 from kdl_parser_py.urdf import treeFromUrdfModel
 from urdf_parser_py.urdf import URDF
 
+from pprint import pprint
+
+# Add this at the VERY BEGINNING of your file
+import sys
+import traceback
+import faulthandler
+
+# Enable faulthandler to get traceback on segfault
+faulthandler.enable()
+
+# Set Python recursion limit
+sys.setrecursionlimit(10000)
+
+LEG_CHAIN_ROOT = "body_plate_deepseek"
+LEG_CHAIN_TIP = lambda leg_id: '3limb' if leg_id == 1 else f'3limb_{leg_id}'
 
 class HexapodKDLController(Node):
     def __init__(self):
         super().__init__('hexapod_kdl_controller')
         
-        # Load URDF and create KDL tree
-        self.robot_urdf = URDF.from_parameter_server()
-        self.kdl_tree = kdl.Tree()
-        if not treeFromUrdfModel(self.robot_urdf, self.kdl_tree):
-            self.get_logger().error("Failed to extract KDL tree from URDF")
-            return
+        self.declare_parameter('robot_description', 'string')
+        urdf_string = self.get_parameter('robot_description').get_parameter_value().string_value
         
-        # Create chains and solvers for all legs
-        self.chains = {}
-        self.fk_solvers = {}
-        self.ik_solvers = {}
-        self.joint_limits = {}
-        
-        for leg_id in range(1, 7):
-            self.setup_leg_solver(leg_id)
-        
-        # Current joint positions
-        self.q_current = self.initialize_joint_positions()
-        
+        if urdf_string:
+            self.robot_urdf = URDF.from_xml_string(urdf_string)
+            self.get_logger().info(f'Successfully loaded URDF from parameter, joints count {len(self.robot_urdf.joints)}, test leg chain {self.robot_urdf.get_chain(LEG_CHAIN_ROOT, LEG_CHAIN_TIP(1))}')
+
+            (ok, self.kdl_tree) = treeFromUrdfModel(self.robot_urdf, False)
+            if not ok:
+                raise Exception("Failed to extract KDL tree from URDF")
+            elif self.kdl_tree.getNrOfJoints() == 0:
+                raise Exception("No joints found in KDL Tree")
+            else:
+                self.get_logger().info(f"Extracted KDL tree from URDF joints {self.kdl_tree.getNrOfJoints()}, segments {self.kdl_tree.getNrOfSegments()}")
+            
+            # Create chains and solvers for all legs
+            self.chains = {}
+            self.fk_solvers = {}
+            self.ik_solvers = {}
+            self.joint_limits = {}
+            
+            for leg_id in range(1, 7):
+                self.setup_leg_solver(leg_id)
+            
+            # Current joint positions
+            self.q_current = self.initialize_joint_positions()                        
+        else:
+            self.get_logger().warn('No URDF found on parameter server')
+
     def setup_leg_solver(self, leg_id):
         """Setup KDL solvers for a single leg"""
         # Get chain from base to foot
-        chain = kdl.Chain()
-        if not self.kdl_tree.getChain("base_link", f"leg{leg_id}_foot", chain):
+        chain = self.kdl_tree.getChain(LEG_CHAIN_ROOT, LEG_CHAIN_TIP(leg_id))
+        if not chain:
             self.get_logger().error(f"Failed to get chain for leg {leg_id}")
+            return
+        elif chain.getNrOfJoints() != 3:            
+            self.get_logger().error(f"Leg {leg_id} (chain from {LEG_CHAIN_ROOT} to {LEG_CHAIN_TIP(leg_id)}), wrong num of joints {chain.getNrOfJoints()}")
+            self.get_logger().error(f"Segments {chain.getNrOfSegments()}")
             return
         
         self.chains[leg_id] = chain
@@ -59,27 +90,29 @@ class HexapodKDLController(Node):
             100,  # max iterations
             1e-6  # epsilon
         )
-    
+        self.ik_solvers[leg_id] = kdl.ChainIkSolverPos_NR (
+            chain, 
+            self.fk_solvers[leg_id], 
+            ik_vel_solver, 100, 1e-6)
+
+        self.ik_solvers[leg_id] = kdl.ChainIkSolverPos_LMA (chain)
+
     def get_joint_limits(self, leg_id):
         """Extract joint limits from URDF"""
-        joint_names = [
-            f"leg{leg_id}_shoulder",
-            f"leg{leg_id}_femur",
-            f"leg{leg_id}_tibia"
-        ]
         
         q_min = kdl.JntArray(3)
         q_max = kdl.JntArray(3)
-        
-        for i, joint_name in enumerate(joint_names):
-            joint = self.robot_urdf.joint_map[joint_name]
+        for joint_id in range(3):
+            joint = self.robot_urdf.joint_map[f"{leg_id}-{joint_id + 1}"]
+            
             if joint.limit:
-                q_min[i] = joint.limit.lower
-                q_max[i] = joint.limit.upper
+                q_min[joint_id] = joint.limit.lower
+                q_max[joint_id] = joint.limit.upper
             else:
-                q_min[i] = -np.pi
-                q_max[i] = np.pi
+                q_min[joint_id] = -np.pi
+                q_max[joint_id] = np.pi
         
+        #self.get_logger().info(f"Leg {leg_id} joint limits {q_min}, {q_max}")
         return q_min, q_max
     
     def forward_kinematics(self, leg_id, q):
@@ -105,6 +138,7 @@ class HexapodKDLController(Node):
         if target_orientation is None:
             # Default orientation (foot pointing down)
             rot = kdl.Rotation.RPY(0, np.pi/2, 0)
+            rot = kdl.Rotation.Identity()
         else:
             rot = kdl.Rotation.Quaternion(*target_orientation)
         
@@ -115,13 +149,17 @@ class HexapodKDLController(Node):
         
         # Solve IK
         q_out = kdl.JntArray(3)
+
         q_init = kdl.JntArray(3)
-        q_init[0] = self.q_current[f"leg{leg_id}_shoulder"]
-        q_init[1] = self.q_current[f"leg{leg_id}_femur"]
-        q_init[2] = self.q_current[f"leg{leg_id}_tibia"]
-        
+        q_init[0] = self.q_current[f"{leg_id}_1"]
+        q_init[1] = self.q_current[f"{leg_id}_2"]
+        q_init[2] = self.q_current[f"{leg_id}_3"]
+
+        # pprint(q_init)
+        # pprint(rot.GetRPY())
+        # pprint(target_position)
         result = self.ik_solvers[leg_id].CartToJnt(q_init, target_frame, q_out)
-        
+
         if result >= 0:  # Success
             return [q_out[0], q_out[1], q_out[2]]
         else:
@@ -151,17 +189,64 @@ class HexapodKDLController(Node):
         
         return trajectory
     
+    def initialize_joint_positions(self):
+        """Initialize all joint positions to a safe standing position"""
+        joint_positions = {}
+        
+        # Hexapod standing position configuration
+        # Adjust these based on your robot's geometry
+        default_angles = {
+            1: 0,  # Legs pointing straight out
+            2: 0,    # Slightly bent up
+            3: 0     # Leg extended downward
+        }
+        
+        # Initialize all 18 joints
+        for leg_id in range(1, 7):
+            for joint_id in range(1, 4):
+                joint_name = f"{leg_id}_{joint_id}"
+                
+                joint_positions[joint_name] = default_angles[joint_id]
+
+        return joint_positions    
+    
 
 def main(args=None):
+    # rclpy.init()
+    # node = HexapodKDLController()
+    
+    # Spin for 30 seconds max
+    # from rclpy.executors import SingleThreadedExecutor
+    # executor = SingleThreadedExecutor()
+    # executor.add_node(node)
+    
+    # try:
+    #     # executor.spin_once(timeout_sec=130.0)
+
+    # finally:
+    #     node.destroy_node()
+    #     rclpy.shutdown()
+
     rclpy.init(args=args)
     
     ik_solver = HexapodKDLController()
     
     try:
-        #spider_walker.return_to_neutral()
-        ik_solver.get_logger().info(ik_solver.inverse_kinematics(1, [0, 0, 0]))
-
+        position, orientation = ik_solver.forward_kinematics(1, kdl.JntArray(3))
+        print(position, orientation)
+    
+        new_pos = kdl.JntArray(3)
+        new_pos[0] = 0.1
+        new_pos[1] = 0.1
+        new_pos[2] = 0.1
+        print(ik_solver.forward_kinematics(1, new_pos))
         
+        print(ik_solver.inverse_kinematics(1, position, orientation))
+        print(ik_solver.inverse_kinematics(1, position))
+        print(ik_solver.inverse_kinematics(1, [0.5, 1.79, 0.619], orientation))
+
+        # while True:
+        #     time.sleep(1)
     except KeyboardInterrupt:
         ik_solver.get_logger().info('Shutting down...')
     finally:
