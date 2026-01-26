@@ -29,6 +29,7 @@ setup(
         'console_scripts': [
             'walker = spider_walker.spider_walker:main',
             'ik = spider_walker.spider_inversekinematics_test:main',
+            'custom_ik = spider_walker.spider_custom_ik:main',
         ],
     },
 )

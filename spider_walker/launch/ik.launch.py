@@ -24,7 +24,7 @@ def generate_launch_description():
 
     ik_walker = Node(
         package="spider_walker",
-        executable="ik",
+        executable="custom_ik",
         parameters=[
             robot_description
         ],
