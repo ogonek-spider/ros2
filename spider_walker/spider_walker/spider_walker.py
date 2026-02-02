@@ -7,6 +7,7 @@ import numpy as np
 import math
 import time
 from pprint import pprint
+from spider_walker.kinematics_solver import HexapodKinematicsSolver
 
 class SpiderWalker(Node):
     def __init__(self):
@@ -28,64 +29,17 @@ class SpiderWalker(Node):
         self.get_logger().info(f'Spider Walker initialized with {len(self.joint_names)} joints')
         
         # Walking parameters
-        self.step_height = 0.05
-        self.step_length = 0.1
-        self.body_height = 0.15
-        self.leg_radius = 0.1  # Distance from body center to leg base
+        self.step_height = 0.4
+        self.step_length = 0.6
+#        self.body_height = 0.15
+#        self.leg_radius = 0.1  # Distance from body center to leg base
         
         # Leg groups for tripod gait
-        self.tripod1 = [0, 2, 4]  # Legs 1, 3, 5
-        self.tripod2 = [1, 3, 5]  # Legs 2, 4, 6
-        
-        # Initial joint positions (neutral position)
-        self.neutral_positions = self.calculate_neutral_positions()
+        self.tripod1 = [1, 3, 5]
+        self.tripod2 = [2, 4, 6]
 
-    def calculate_neutral_positions(self):
-        """Calculate initial neutral positions for all joints"""
-        positions = []
-        for leg_idx in range(6):
-            # Base joint (horizontal rotation)
-            positions.append(0.0)  # joint1
-            
-            # Shoulder joint (vertical rotation)
-            positions.append(0)  # joint2
-            
-            # Knee joint
-            positions.append(0)  # joint3 - slightly bent
-        return positions
-
-    def calculate_inverse_kinematics(self, leg_index, foot_position):
-        """
-        Calculate joint angles for a given foot position (relative to leg base)
-        Simple 3DOF leg IK for spider robot
-        """
-        x, y, z = foot_position
-        
-        # Joint 1: Rotation around vertical axis (atan2 of x, y)
-        joint1 = math.atan2(y, x)
-        
-        # Distance in the horizontal plane
-        r = math.sqrt(x*x + y*y)
-        
-        # Adjust for leg link lengths (you need to adjust these based on your robot)
-        L1 = 0.05  # Length of first segment (shoulder)
-        L2 = 0.07  # Length of second segment (femur)
-        L3 = 0.08  # Length of third segment (tibia)
-        
-        # Calculate joint angles for the leg chain
-        # This is simplified - you may need to adjust based on your leg design
-        D = math.sqrt(r*r + z*z)
-        
-        if D > L1 + L2 + L3:
-            D = L1 + L2 + L3 - 0.01
-        
-        # Simple trigonometry for 3DOF leg
-        # For a proper spider leg, you'd need proper IK for your specific configuration
-        joint2 = math.asin(z / D) if D != 0 else 0
-        joint3 = -math.pi/2  # Default bent position
-        
-        # Adjust based on actual leg geometry
-        return [joint1, joint2, joint3]
+        self.kinematics = HexapodKinematicsSolver.create_default()
+        self.neutral_positions = self.kinematics.NEUTRAL * 6
 
     def create_walking_trajectory(self, phase, step_progress):
         """
@@ -105,33 +59,50 @@ class SpiderWalker(Node):
         # Calculate positions for all joints
         positions = []
         
-        for leg_idx in range(6):
+        for leg_idx in range(1, 7):
             # Determine if this leg is in swing or stance phase
             is_swing = (leg_idx in self.tripod1 and phase == 0) or \
                       (leg_idx in self.tripod2 and phase == 1)
             
+            xyz = self.kinematics.forward(leg_idx, self.kinematics.NEUTRAL)
+
+            # not supper clean, but we need to save leg positions between phases
+            if phase == 1:
+                if is_swing:
+                    xyz[0] -= self.step_length
+                else:
+                    xyz[0] += self.step_length
+            
+            lift_height = 0
+            step_x = 0
+
             if is_swing:
                 # Swing leg: Lift, move forward, lower
                 if step_progress < 0.5:
                     # Lift phase
                     lift_height = self.step_height * (step_progress * 2)
-                    foot_pos = self.get_foot_position(leg_idx, step_progress * 0.5, lift_height)
+                    #step_x = self.step_length * (step_progress - 1)
                 else:
                     # Lower phase
                     lift_height = self.step_height * (2 - step_progress * 2)
-                    foot_pos = self.get_foot_position(leg_idx, 0.5 + (step_progress - 0.5) * 0.5, lift_height)
+                    #step_x = self.step_length * (step_progress - 0.5)
+                step_x = self.step_length * step_progress
             else:
                 # Stance leg: Push body forward
-                foot_pos = self.get_foot_position(leg_idx, step_progress, 0)
+                #step_x = - self.step_length * (2 * step_progress - 1)            
+                step_x = -self.step_length * step_progress
             
+            xyz[0] += step_x
+            xyz[2] += lift_height
+            self.get_logger().info(f'PH {phase} {step_progress*100}% L{leg_idx} {is_swing}: x {step_x}, z {lift_height}')
             # Calculate joint angles from foot position
-            joint_angles = self.calculate_inverse_kinematics(leg_idx, foot_pos)
+            joint_angles = self.kinematics.inverse(leg_idx, xyz)
             positions.extend(joint_angles)
         
         point.positions = positions
         # Add some velocity for smooth motion
-        #point.velocities = [0.0] * len(positions)
-        #point.accelerations = [0.0] * len(positions)
+        point.velocities = [0.0] * len(positions)
+        point.accelerations = [0.0] * len(positions)
         
         return point
 
@@ -215,14 +186,14 @@ class SpiderWalker(Node):
             trajectory_msg.points = points
             
             # Publish trajectory
-            pprint(trajectory_msg.points)
+            #pprint(trajectory_msg.points)
             self.trajectory_pub.publish(trajectory_msg)
             
             # Wait for step to complete
-            time.sleep(step_duration)
+            time.sleep(step_duration * 1.2)
         
         # Return to neutral position
-        self.return_to_neutral()
+        # self.return_to_neutral()
 
     def return_to_neutral(self):
         """Return to neutral position"""
@@ -285,7 +256,7 @@ class SpiderWalker(Node):
         point1.time_from_start = Duration(sec=0, nanosec=0)
         
         point2 = JointTrajectoryPoint()
-        positions = self.neutral_positions.copy()
+        positions = list(self.neutral_positions)
 
         if phase == 0:
             swing_legs = [2, 4, 6]
@@ -294,11 +265,18 @@ class SpiderWalker(Node):
  
         for leg in range(1, 7):            
             leg_offset = (leg - 1) * 3
+            xyz = self.kinematics.forward(leg, self.kinematics.NEUTRAL)
             if leg in swing_legs:
-                positions[leg_offset] += 0.5  # Rotate base joint
-                positions[leg_offset + 2] -= 1.5  # Lift knee
+                xyz[2] += self.step_height                
+                xyz[0] += self.step_length
+                pass
             else:
-                positions[leg_offset] += 0.5
+                xyz[0] -= self.step_length
+                pass
+            angles = self.kinematics.inverse(leg, xyz)
+            positions[leg_offset] = angles[0]
+            positions[leg_offset + 1] = angles[1]
+            positions[leg_offset + 2] = angles[2]
         
         point2.positions = positions
         point2.time_from_start = Duration(sec=0, nanosec=500000000)
@@ -314,13 +292,13 @@ class SpiderWalker(Node):
                 positions[leg_offset] -= 0.5
         point3.time_from_start = Duration(sec=0, nanosec=1000000000)
         
-        trajectory_msg.points = [point1, point2, point3]   
-        pprint(trajectory_msg.points)
+        trajectory_msg.points = [point1, point2]#, point3]   
+        #pprint(trajectory_msg.points)
         # self.trajectory_pub.publish(trajectory_msg)
         # time.sleep(2.5)
         self.trajectory_pub.publish(trajectory_msg)
             
-        time.sleep(1)
+        time.sleep(2)
 
 
 def main(args=None):
@@ -329,17 +307,21 @@ def main(args=None):
     spider_walker = SpiderWalker()
     
     try:
-        spider_walker.return_to_neutral()
+        spider_walker.return_to_neutral()        
+        time.sleep(2)
         # Test with simple motion first
         #spider_walker.get_logger().info('Testing with simple wave motion...')
         # spider_walker.simple_wave_motion()
-        while True:
-            spider_walker.tripod_pose_test(0)
-            spider_walker.tripod_pose_test(1)
+        #spider_walker.tripod_pose_test(0)
+        # while True:
+        #     spider_walker.return_to_neutral()
+        #     spider_walker.tripod_pose_test(0)
+        #     spider_walker.tripod_pose_test(1)
         
         # Then try walking  
-        #spider_walker.get_logger().info('Starting walking pattern...')
-        # spider_walker.walk_step(num_steps=2, step_duration=3.0)
+        spider_walker.get_logger().info('Starting walking pattern...')
+        while True:
+            spider_walker.walk_step(num_steps=1, step_duration=1)
         #spider_walker.walk_step(num_steps=1, step_duration=300.0)
         
     except KeyboardInterrupt:

@@ -36,8 +36,15 @@ class HexapodKinematicsSolver:
         L1 = 0.25
         L2 = 0.718
         L3 = 1.71
-        legs_mount_angles = [None, -math.pi/4, -math.pi/2, - 3/4 * math.pi, math.pi/4, math.pi/2, 3/4 * math.pi]
-
+        #legs_mount_angles = [None, -math.pi/4, -math.pi/2, - 3/4 * math.pi, math.pi/4, math.pi/2, 3/4 * math.pi]
+        legs_mount_angles = [None, 
+                             -math.pi/4,  #1
+                             0,     #2
+                             math.pi/4,   #3
+                             math.pi/4 + math.pi,   #4
+                             -math.pi,    #5
+                             3/4 * math.pi#6
+        ]
         joints_offset_angles = [math.pi/2, -math.pi/2, 0]
 
         return cls(L1, L2, L3, legs_mount_angles, joints_offset_angles)
@@ -171,7 +178,7 @@ class HexapodKinematicsSolver:
         y_leg = -x * math.sin(ma) + y * math.cos(ma)
         z_leg = z
 
-        print(f"body2leg {point} -> {x_leg:.2f}, {y_leg:.2f}, {z_leg:.2f}")
+        #print(f"body2leg {point} -> {x_leg:.2f}, {y_leg:.2f}, {z_leg:.2f}")
 
         # 2. Calculate coxa angle
         theta_coxa = math.atan2(y_leg, x_leg)
@@ -212,9 +219,9 @@ class HexapodKinematicsSolver:
         # theta_femur = -theta_femur
         # theta_tibia = -theta_tibia
 
-        print(f"before offset {theta_coxa:.2f}, {theta_femur:.2f}, {theta_tibia:.2f}")
+        #print(f"before offset {theta_coxa:.2f}, {theta_femur:.2f}, {theta_tibia:.2f}")
         angles = (theta_coxa - self.joint_offset_angles[0], theta_femur - self.joint_offset_angles[1], theta_tibia - self.joint_offset_angles[2])
-        print(f"x {point[0]:.3f} y {point[1]:.3f} z {point[2]:.3f} -> ({angles[0]:.3f}, {angles[1]:.3f}, {angles[2]:.3f})")
+        #print(f"x {point[0]:.3f} y {point[1]:.3f} z {point[2]:.3f} -> ({angles[0]:.3f}, {angles[1]:.3f}, {angles[2]:.3f})")
         return angles
 
     
