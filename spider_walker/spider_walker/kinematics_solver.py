@@ -27,15 +27,15 @@ class HexapodKinematicsSolver:
     """
 
     
-    NEUTRAL = (0, 1, 1.7)
+    NEUTRAL = (0, 1.3, 1.65)
     LEGSUP = (0, 0, 0)
 
     @classmethod
     def create_default(cls):
         #fixme parse urdf
         L1 = 0.25
-        L2 = 0.718
-        L3 = 1.71
+        L2 = 0.669
+        L3 = 0.919
         #legs_mount_angles = [None, -math.pi/4, -math.pi/2, - 3/4 * math.pi, math.pi/4, math.pi/2, 3/4 * math.pi]
         legs_mount_angles = [None, 
                              -math.pi/4,  #1

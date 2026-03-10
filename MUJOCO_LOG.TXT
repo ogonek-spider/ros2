@@ -1,0 +1,51 @@
+Mon Mar  2 10:55:21 2026
+WARNING: Insufficient arena memory for the number of constraints generated. Increase arena memory allocation above 10M bytes. Time = 89.3950.
+
+Mon Mar  2 10:55:21 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 89.3950.
+
+Mon Mar  2 10:56:10 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 59. The simulation is unstable. Time = 2.8130.
+
+Mon Mar  2 10:56:36 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 202. The simulation is unstable. Time = 7.8380.
+
+Mon Mar  2 11:17:42 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 6.8920.
+
+Mon Mar  2 11:22:16 2026
+ERROR: Load model error: XML Error: Include error: 'XML parse error 7:
+Error=XML_ERROR_PARSING_ATTRIBUTE ErrorID=7 (0x7) Line number=121: XMLElement name=flexcomp
+'
+Element 'include', line 6
+
+
+Mon Mar  2 11:22:27 2026
+ERROR: Load model error: XML Error: Include error: 'XML parse error 7:
+Error=XML_ERROR_PARSING_ATTRIBUTE ErrorID=7 (0x7) Line number=121: XMLElement name=flexcomp
+'
+Element 'include', line 6
+
+
+Mon Mar  2 11:41:02 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 5.6500.
+
+Mon Mar  2 11:42:43 2026
+ERROR: Load model error: XML Error: Spacing must be larger than geometry size
+Element 'flexcomp', line 0
+
+
+Mon Mar  9 17:59:06 2026
+WARNING: XML contains a 'NaN'. Please check it carefully.
+
+Mon Mar  9 17:59:06 2026
+WARNING: XML contains a 'NaN'. Please check it carefully.
+
+Tue Mar 10 11:35:48 2026
+ERROR: Load model error: Error: number of faces should be between 1 and 200000 in STL file '/Users/alarin/Documents/art/ogonek25-spider/ros2/install/spider_description/share/spider_description/mujoco/assets/merged/body_plate_deepseek_collision.stl'; perhaps this is an ASCII file?
+Element name 'body_plate_deepseek_collision', id 6, line 0
+
+Tue Mar 10 11:38:34 2026
+ERROR: Load model error: Error: number of faces should be between 1 and 200000 in STL file '/Users/alarin/Documents/art/ogonek25-spider/ros2/install/spider_description/share/spider_description/mujoco/assets/merged/body_plate_deepseek_collision.stl'; perhaps this is an ASCII file?
+Element name 'body_plate_deepseek_collision', id 6, line 0
+

@@ -307,6 +307,7 @@ def main(args=None):
     spider_walker = SpiderWalker()
     
     try:
+        spider_walker.return_to_neutral()      
         spider_walker.return_to_neutral()        
         time.sleep(2)
         # Test with simple motion first
@@ -317,11 +318,11 @@ def main(args=None):
         #     spider_walker.return_to_neutral()
         #     spider_walker.tripod_pose_test(0)
         #     spider_walker.tripod_pose_test(1)
-        
+        return
         # Then try walking  
         spider_walker.get_logger().info('Starting walking pattern...')
         while True:
-            spider_walker.walk_step(num_steps=1, step_duration=1)
+            spider_walker.walk_step(num_steps=1, step_duration=10)
         #spider_walker.walk_step(num_steps=1, step_duration=300.0)
         
     except KeyboardInterrupt:
