@@ -1,0 +1,14 @@
+<mujoco>
+  <default>
+    <default class="mujoco">
+      <joint frictionloss="0.1" armature="0.005"   damping="5.0"/>
+      <position kp="5000" dampratio="1" ctrlrange="-2.5 2.5" forcerange="-250 250"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom group="3"/>
+      </default>
+    </default>
+  </default>
+  </mujoco>

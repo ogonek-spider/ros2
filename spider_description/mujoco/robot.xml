@@ -3,50 +3,39 @@
 <!-- Onshape https://cad.onshape.com/documents/238e8faca9c7214bccace665/w/ac168b104948c1f839976186/e/ff38749d3c208be6e626a671 -->
 <mujoco model="mujoco">
   <compiler angle="radian" meshdir="assets" autolimits="true"/>
-  <default>
-    <default class="mujoco">
-      <joint frictionloss="0.1" armature="0.005"/>
-      <position kp="50" dampratio="1"/>
-      <default class="visual">
-        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
-      </default>
-      <default class="collision">
-        <geom group="3"/>
-      </default>
-    </default>
-  </default>
+
   <worldbody>
     <!-- Link body_plate_deepseek -->
     <body name="body_plate_deepseek" pos="0 0 0" quat="1 0 0 0" childclass="mujoco">
       <freejoint name="body_plate_deepseek_freejoint"/>
-      <inertial pos="1.48798 0.646233 -0.650972" mass="47.3631" fullinertia="4.98772 5.73045 9.94036 -0.00384768 0.0949965 0.00441367"/>
+      <inertial pos="1.48797 0.645493 -0.651416" mass="36.1755" fullinertia="3.84575 4.40306 7.68713 -0.00288428 0.0736812 0.00347337"/>
       <!-- Part body_plate_deepseek_parts -->
-      <geom type="mesh" class="visual" pos="1.48798 0.646233 -0.650972" quat="1 0 0 0" mesh="body_plate_deepseek_visual" material="body_plate_deepseek_visual_material"/>
-      <geom type="mesh" class="collision" pos="1.48798 0.646233 -0.650972" quat="1 0 0 0" mesh="body_plate_deepseek_collision" material="body_plate_deepseek_collision_material"/>
+      <geom type="mesh" class="visual" pos="1.48797 0.645493 -0.651416" quat="1 0 0 0" mesh="body_plate_deepseek_visual" material="body_plate_deepseek_visual_material"/>
+      <geom type="mesh" class="collision" pos="1.48797 0.645493 -0.651416" quat="1 0 0 0" mesh="body_plate_deepseek_collision" material="body_plate_deepseek_collision_material"/>
       <!-- Link 1brackets -->
       <body name="1brackets" pos="1.12766 1.03602 -0.761328" quat="0.363935 0.00873684 0.00397727 0.931375">
         <!-- Joint from body_plate_deepseek to 1brackets -->
         <joint axis="0 0 1" name="1-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.363935 -0.00873684 -0.00397727 -0.931375" mesh="1brackets_visual" material="1brackets_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.363935 -0.00873684 -0.00397727 -0.931375" mesh="1brackets_collision" material="1brackets_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.363935 -0.00873684 -0.00397727 -0.931375" mesh="1brackets_visual" material="1brackets_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.363935 -0.00873684 -0.00397727 -0.931375" mesh="1brackets_collision" material="1brackets_collision_material"/>
         <!-- Link 2limb -->
         <body name="2limb" pos="0.229 -0.117162 0.11355" quat="0.5 -0.5 -0.5 -0.5">
           <!-- Joint from 1brackets to 2limb -->
           <joint axis="0 0 1" name="1-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.654012 -0.2861 0.641298 -0.28134" mesh="2limb_visual" material="2limb_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.654012 -0.2861 0.641298 -0.28134" mesh="2limb_collision" material="2limb_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.654012 -0.2861 0.641298 -0.28134" mesh="2limb_visual" material="2limb_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.654012 -0.2861 0.641298 -0.28134" mesh="2limb_collision" material="2limb_collision_material"/>
           <!-- Link 3limb -->
           <body name="3limb" pos="0.669 0.000161803 -0.00045" quat="0.999916 9.21767e-16 6.01084e-16 0.0129438">
             <!-- Joint from 2limb to 3limb -->
             <joint axis="0 0 1" name="1-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.650315 -0.277775 0.644947 -0.289782" mesh="3limb_visual" material="3limb_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.650315 -0.277775 0.644947 -0.289782" mesh="3limb_collision" material="3limb_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.650315 -0.277775 0.644947 -0.289782" mesh="3limb_visual" material="3limb_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.650315 -0.277775 0.644947 -0.289782" mesh="3limb_collision" material="3limb_collision_material"/>
           </body>
         </body>
       </body>
@@ -54,26 +43,26 @@
       <body name="1brackets_2" pos="1.08567 0.679726 -0.758027" quat="0.00264507 -0.00958653 -0.000499363 -0.99995">
         <!-- Joint from body_plate_deepseek to 1brackets_2 -->
         <joint axis="0 0 1" name="2-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_2_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.00264507 0.00958653 0.000499363 0.99995" mesh="1brackets_2_visual" material="1brackets_2_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.00264507 0.00958653 0.000499363 0.99995" mesh="1brackets_2_collision" material="1brackets_2_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.00264507 0.00958653 0.000499363 0.99995" mesh="1brackets_2_visual" material="1brackets_2_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.00264507 0.00958653 0.000499363 0.99995" mesh="1brackets_2_collision" material="1brackets_2_collision_material"/>
         <!-- Link 2limb_2 -->
         <body name="2limb_2" pos="0.229 -0.114162 0.11355" quat="0.5 -0.5 -0.5 -0.5">
           <!-- Joint from 1brackets_2 to 2limb_2 -->
           <joint axis="0 0 1" name="2-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_2_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.503696 -0.505841 0.49361 -0.496754" mesh="2limb_2_visual" material="2limb_2_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.503696 -0.505841 0.49361 -0.496754" mesh="2limb_2_collision" material="2limb_2_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.503696 -0.505841 0.49361 -0.496754" mesh="2limb_2_visual" material="2limb_2_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.503696 -0.505841 0.49361 -0.496754" mesh="2limb_2_collision" material="2limb_2_collision_material"/>
           <!-- Link 3limb_2 -->
           <body name="3limb_2" pos="0.669 0.000161803 -0.00045" quat="1 -1.19544e-16 1.04961e-15 -0.000260555">
             <!-- Joint from 2limb_2 to 3limb_2 -->
             <joint axis="0 0 1" name="2-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_2_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.503825 -0.50597 0.493478 -0.496623" mesh="3limb_2_visual" material="3limb_2_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.503825 -0.50597 0.493478 -0.496623" mesh="3limb_2_collision" material="3limb_2_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.503825 -0.50597 0.493478 -0.496623" mesh="3limb_2_visual" material="3limb_2_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.503825 -0.50597 0.493478 -0.496623" mesh="3limb_2_collision" material="3limb_2_collision_material"/>
           </body>
         </body>
       </body>
@@ -81,26 +70,26 @@
       <body name="1brackets_3" pos="1.13201 0.223899 -0.758437" quat="0.385108 -0.0090479 0.00320726 -0.922822">
         <!-- Joint from body_plate_deepseek to 1brackets_3 -->
         <joint axis="0 0 1" name="3-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_3_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.385108 0.0090479 -0.00320726 0.922822" mesh="1brackets_3_visual" material="1brackets_3_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.385108 0.0090479 -0.00320726 0.922822" mesh="1brackets_3_collision" material="1brackets_3_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.385108 0.0090479 -0.00320726 0.922822" mesh="1brackets_3_visual" material="1brackets_3_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.385108 0.0090479 -0.00320726 0.922822" mesh="1brackets_3_collision" material="1brackets_3_collision_material"/>
         <!-- Link 2limb_3 -->
         <body name="2limb_3" pos="0.229 -0.114162 0.11355" quat="0.513786 -0.513786 -0.485823 -0.485823">
           <!-- Joint from 1brackets_3 to 2limb_3 -->
           <joint axis="0 0 1" name="3-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_3_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.253555 -0.652398 0.28429 -0.655184" mesh="2limb_3_visual" material="2limb_3_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.253555 -0.652398 0.28429 -0.655184" mesh="2limb_3_collision" material="2limb_3_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.253555 -0.652398 0.28429 -0.655184" mesh="2limb_3_visual" material="2limb_3_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.253555 -0.652398 0.28429 -0.655184" mesh="2limb_3_collision" material="2limb_3_collision_material"/>
           <!-- Link 3limb_3 -->
           <body name="3limb_3" pos="0.669 0.000161803 -0.00045" quat="0.999925 1.77978e-16 -1.49456e-16 -0.0122091">
             <!-- Joint from 2limb_3 to 3limb_3 -->
             <joint axis="0 0 1" name="3-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_3_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.261536 -0.65582 0.276304 -0.652039" mesh="3limb_3_visual" material="3limb_3_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.261536 -0.65582 0.276304 -0.652039" mesh="3limb_3_collision" material="3limb_3_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.261536 -0.65582 0.276304 -0.652039" mesh="3limb_3_visual" material="3limb_3_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.261536 -0.65582 0.276304 -0.652039" mesh="3limb_3_collision" material="3limb_3_collision_material"/>
           </body>
         </body>
       </body>
@@ -108,26 +97,26 @@
       <body name="1brackets_4" pos="1.8397 1.03978 -0.772862" quat="0.922822 0.00320726 0.0090479 0.385108">
         <!-- Joint from body_plate_deepseek to 1brackets_4 -->
         <joint axis="0 0 1" name="4-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_4_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.922822 -0.00320726 -0.0090479 -0.385108" mesh="1brackets_4_visual" material="1brackets_4_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.922822 -0.00320726 -0.0090479 -0.385108" mesh="1brackets_4_collision" material="1brackets_4_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.922822 -0.00320726 -0.0090479 -0.385108" mesh="1brackets_4_visual" material="1brackets_4_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.922822 -0.00320726 -0.0090479 -0.385108" mesh="1brackets_4_collision" material="1brackets_4_collision_material"/>
         <!-- Link 2limb_4 -->
         <body name="2limb_4" pos="0.229 -0.114162 0.11355" quat="0.502185 -0.502185 -0.497805 -0.497805">
           <!-- Joint from 1brackets_4 to 2limb_4 -->
           <joint axis="0 0 1" name="4-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_4_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.661251 0.274612 0.646641 0.263043" mesh="2limb_4_visual" material="2limb_4_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.661251 0.274612 0.646641 0.263043" mesh="2limb_4_collision" material="2limb_4_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.661251 0.274612 0.646641 0.263043" mesh="2limb_4_visual" material="2limb_4_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.661251 0.274612 0.646641 0.263043" mesh="2limb_4_collision" material="2limb_4_collision_material"/>
           <!-- Link 3limb_4 -->
           <body name="3limb_4" pos="0.669 0.000161803 -0.00045" quat="0.999935 1.10706e-16 3.79172e-16 -0.0114099">
             <!-- Joint from 2limb_4 to 3limb_4 -->
             <joint axis="0 0 1" name="4-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_4_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.658207 0.267216 0.649732 0.27057" mesh="3limb_4_visual" material="3limb_4_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.658207 0.267216 0.649732 0.27057" mesh="3limb_4_collision" material="3limb_4_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.658207 0.267216 0.649732 0.27057" mesh="3limb_4_visual" material="3limb_4_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.658207 0.267216 0.649732 0.27057" mesh="3limb_4_collision" material="3limb_4_collision_material"/>
           </body>
         </body>
       </body>
@@ -135,26 +124,26 @@
       <body name="1brackets_5" pos="1.88551 0.68395 -0.773367" quat="0.99995 -0.000499363 0.00958653 0.00264507">
         <!-- Joint from body_plate_deepseek to 1brackets_5 -->
         <joint axis="0 0 1" name="5-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_5_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.99995 0.000499363 -0.00958653 -0.00264507" mesh="1brackets_5_visual" material="1brackets_5_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.99995 0.000499363 -0.00958653 -0.00264507" mesh="1brackets_5_collision" material="1brackets_5_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.99995 0.000499363 -0.00958653 -0.00264507" mesh="1brackets_5_visual" material="1brackets_5_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.99995 0.000499363 -0.00958653 -0.00264507" mesh="1brackets_5_collision" material="1brackets_5_collision_material"/>
         <!-- Link 2limb_5 -->
         <body name="2limb_5" pos="0.229 -0.116283 0.11355" quat="0.485568 -0.485568 -0.514027 -0.514027">
           <!-- Joint from 1brackets_5 to 2limb_5 -->
           <joint axis="0 0 1" name="5-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_5_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.491588 0.489354 0.510888 0.507806" mesh="2limb_5_visual" material="2limb_5_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.491588 0.489354 0.510888 0.507806" mesh="2limb_5_collision" material="2limb_5_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.491588 0.489354 0.510888 0.507806" mesh="2limb_5_visual" material="2limb_5_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.491588 0.489354 0.510888 0.507806" mesh="2limb_5_collision" material="2limb_5_collision_material"/>
           <!-- Link 3limb_5 -->
           <body name="3limb_5" pos="0.669 0.000161803 -0.00045" quat="0.999947 2.06512e-16 5.42169e-16 0.0103115">
             <!-- Joint from 2limb_5 to 3limb_5 -->
             <joint axis="0 0 1" name="5-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_5_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.496799 0.494596 0.505815 0.50271" mesh="3limb_5_visual" material="3limb_5_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.496799 0.494596 0.505815 0.50271" mesh="3limb_5_collision" material="3limb_5_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.496799 0.494596 0.505815 0.50271" mesh="3limb_5_visual" material="3limb_5_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.496799 0.494596 0.505815 0.50271" mesh="3limb_5_collision" material="3limb_5_collision_material"/>
           </body>
         </body>
       </body>
@@ -162,108 +151,108 @@
       <body name="1brackets_6" pos="1.844 0.227659 -0.772092" quat="0.924846 -0.00412996 0.00866571 -0.380221">
         <!-- Joint from body_plate_deepseek to 1brackets_6 -->
         <joint axis="0 0 1" name="6-1" type="hinge"/>
-        <inertial pos="0.168059 0.000477562 0.11374" mass="9.53192" fullinertia="0.0951925 0.114814 0.105647 -0.000297866 0.00030454 7.85609e-07"/>
+        <inertial pos="0.210281 0.000161175 0.113612" mass="5.25984" fullinertia="0.0352612 0.033985 0.0417128 -1.96102e-05 6.88296e-05 3.83446e-08"/>
         <!-- Part 1brackets_6_parts -->
-        <geom type="mesh" class="visual" pos="0.168059 0.000477562 0.11374" quat="0.924846 0.00412996 -0.00866571 0.380221" mesh="1brackets_6_visual" material="1brackets_6_visual_material"/>
-        <geom type="mesh" class="collision" pos="0.168059 0.000477562 0.11374" quat="0.924846 0.00412996 -0.00866571 0.380221" mesh="1brackets_6_collision" material="1brackets_6_collision_material"/>
+        <geom type="mesh" class="visual" pos="0.210281 0.000161175 0.113612" quat="0.924846 0.00412996 -0.00866571 0.380221" mesh="1brackets_6_visual" material="1brackets_6_visual_material"/>
+        <geom type="mesh" class="collision" pos="0.210281 0.000161175 0.113612" quat="0.924846 0.00412996 -0.00866571 0.380221" mesh="1brackets_6_collision" material="1brackets_6_collision_material"/>
         <!-- Link 2limb_6 -->
         <body name="2limb_6" pos="0.229 -0.114162 0.11355" quat="0.496887 -0.496887 -0.503094 -0.503094">
           <!-- Joint from 1brackets_6 to 2limb_6 -->
           <joint axis="0 0 1" name="6-2" type="hinge"/>
-          <inertial pos="0.434251 0.000126527 0.114101" mass="13.4767" fullinertia="0.100718 0.912651 0.845955 -0.000172448 -0.000533473 -4.84908e-08"/>
+          <inertial pos="0.574401 0.000147425 0.113875" mass="5.97238" fullinertia="0.0362591 0.263632 0.242201 -4.31846e-05 3.40972e-05 1.06941e-08"/>
           <!-- Part 2limb_6_parts -->
-          <geom type="mesh" class="visual" pos="0.434251 0.000126527 0.114101" quat="0.270565 0.657242 0.27413 0.647827" mesh="2limb_6_visual" material="2limb_6_visual_material"/>
-          <geom type="mesh" class="collision" pos="0.434251 0.000126527 0.114101" quat="0.270565 0.657242 0.27413 0.647827" mesh="2limb_6_collision" material="2limb_6_collision_material"/>
+          <geom type="mesh" class="visual" pos="0.574401 0.000147425 0.113875" quat="0.270565 0.657242 0.27413 0.647827" mesh="2limb_6_visual" material="2limb_6_visual_material"/>
+          <geom type="mesh" class="collision" pos="0.574401 0.000147425 0.113875" quat="0.270565 0.657242 0.27413 0.647827" mesh="2limb_6_collision" material="2limb_6_collision_material"/>
           <!-- Link 3limb_6 -->
           <body name="3limb_6" pos="0.669 0.000161803 -0.00045" quat="1 1.05515e-15 -7.67468e-16 4.81292e-05">
             <!-- Joint from 2limb_6 to 3limb_6 -->
             <joint axis="0 0 1" name="6-3" type="hinge"/>
-            <inertial pos="0.398466 -1.04181e-05 0.113725" mass="10.3335" fullinertia="0.0579494 0.917201 0.88066 0.000528926 0.000722064 -9.85582e-08"/>
+            <inertial pos="0.458667 -0.000495788 0.113705" mass="2.11394" fullinertia="0.0108906 0.223749 0.217051 0.0005726 0.000150131 -1.7668e-07"/>
             <!-- Part 3limb_6_parts -->
-            <geom type="mesh" class="visual" pos="0.398466 -1.04181e-05 0.113725" quat="0.270596 0.657255 0.274098 0.647814" mesh="3limb_6_visual" material="3limb_6_visual_material"/>
-            <geom type="mesh" class="collision" pos="0.398466 -1.04181e-05 0.113725" quat="0.270596 0.657255 0.274098 0.647814" mesh="3limb_6_collision" material="3limb_6_collision_material"/>
+            <geom type="mesh" class="visual" pos="0.458667 -0.000495788 0.113705" quat="0.270596 0.657255 0.274098 0.647814" mesh="3limb_6_visual" material="3limb_6_visual_material"/>
+            <geom type="mesh" class="collision" pos="0.458667 -0.000495788 0.113705" quat="0.270596 0.657255 0.274098 0.647814" mesh="3limb_6_collision" material="3limb_6_collision_material"/>
           </body>
         </body>
       </body>
     </body>
   </worldbody>
   <asset>
-    <mesh file="merged/1brackets_visual.stl"/>
-    <mesh file="merged/2limb_6_visual.stl"/>
-    <mesh file="merged/3limb_5_collision.stl"/>
-    <mesh file="merged/1brackets_2_collision.stl"/>
-    <mesh file="merged/2limb_3_visual.stl"/>
-    <mesh file="merged/body_plate_deepseek_visual.stl"/>
-    <mesh file="merged/2limb_5_visual.stl"/>
-    <mesh file="merged/3limb_4_visual.stl"/>
-    <mesh file="merged/1brackets_2_visual.stl"/>
-    <mesh file="merged/2limb_2_visual.stl"/>
-    <mesh file="merged/3limb_visual.stl"/>
-    <mesh file="merged/2limb_6_collision.stl"/>
-    <mesh file="merged/2limb_2_collision.stl"/>
-    <mesh file="merged/1brackets_6_visual.stl"/>
-    <mesh file="merged/2limb_collision.stl"/>
-    <mesh file="merged/2limb_5_collision.stl"/>
-    <mesh file="merged/1brackets_6_collision.stl"/>
-    <mesh file="merged/3limb_2_visual.stl"/>
-    <mesh file="merged/3limb_2_collision.stl"/>
-    <mesh file="merged/3limb_collision.stl"/>
-    <mesh file="merged/1brackets_5_collision.stl"/>
-    <mesh file="merged/3limb_3_visual.stl"/>
-    <mesh file="merged/2limb_4_collision.stl"/>
-    <mesh file="merged/3limb_3_collision.stl"/>
-    <mesh file="merged/body_plate_deepseek_collision.stl"/>
-    <mesh file="merged/1brackets_4_collision.stl"/>
-    <mesh file="merged/1brackets_3_collision.stl"/>
-    <mesh file="merged/3limb_4_collision.stl"/>
-    <mesh file="merged/3limb_6_collision.stl"/>
-    <mesh file="merged/1brackets_5_visual.stl"/>
-    <mesh file="merged/1brackets_collision.stl"/>
-    <mesh file="merged/2limb_3_collision.stl"/>
-    <mesh file="merged/2limb_visual.stl"/>
     <mesh file="merged/2limb_4_visual.stl"/>
-    <mesh file="merged/3limb_5_visual.stl"/>
-    <mesh file="merged/1brackets_3_visual.stl"/>
-    <mesh file="merged/3limb_6_visual.stl"/>
+    <mesh file="merged/3limb_6_collision.stl"/>
+    <mesh file="merged/2limb_5_collision.stl"/>
+    <mesh file="merged/2limb_4_collision.stl"/>
+    <mesh file="merged/1brackets_6_visual.stl"/>
+    <mesh file="merged/1brackets_3_collision.stl"/>
+    <mesh file="merged/body_plate_deepseek_collision.stl"/>
+    <mesh file="merged/3limb_3_collision.stl"/>
+    <mesh file="merged/2limb_2_visual.stl"/>
+    <mesh file="merged/2limb_5_visual.stl"/>
     <mesh file="merged/1brackets_4_visual.stl"/>
-    <material name="body_plate_deepseek_visual_material" rgba="0.552389 0.740716 0.892596 1"/>
-    <material name="body_plate_deepseek_collision_material" rgba="0.552389 0.740716 0.892596 1"/>
-    <material name="1brackets_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="1brackets_2_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_2_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_2_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_2_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_2_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_2_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="1brackets_3_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_3_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_3_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_3_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_3_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_3_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="1brackets_4_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_4_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_4_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_4_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_4_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_4_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="1brackets_5_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_5_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_5_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_5_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_5_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_5_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="1brackets_6_visual_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="1brackets_6_collision_material" rgba="0.625357 0.760994 0.842377 1"/>
-    <material name="2limb_6_visual_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="2limb_6_collision_material" rgba="0.622526 0.775855 0.867853 1"/>
-    <material name="3limb_6_visual_material" rgba="0.613377 0.752328 0.842596 1"/>
-    <material name="3limb_6_collision_material" rgba="0.613377 0.752328 0.842596 1"/>
+    <mesh file="merged/3limb_4_visual.stl"/>
+    <mesh file="merged/body_plate_deepseek_visual.stl"/>
+    <mesh file="merged/1brackets_4_collision.stl"/>
+    <mesh file="merged/1brackets_5_visual.stl"/>
+    <mesh file="merged/3limb_5_collision.stl"/>
+    <mesh file="merged/3limb_2_collision.stl"/>
+    <mesh file="merged/1brackets_collision.stl"/>
+    <mesh file="merged/2limb_6_visual.stl"/>
+    <mesh file="merged/3limb_visual.stl"/>
+    <mesh file="merged/1brackets_6_collision.stl"/>
+    <mesh file="merged/2limb_3_visual.stl"/>
+    <mesh file="merged/2limb_3_collision.stl"/>
+    <mesh file="merged/2limb_collision.stl"/>
+    <mesh file="merged/3limb_2_visual.stl"/>
+    <mesh file="merged/3limb_collision.stl"/>
+    <mesh file="merged/3limb_5_visual.stl"/>
+    <mesh file="merged/3limb_6_visual.stl"/>
+    <mesh file="merged/2limb_visual.stl"/>
+    <mesh file="merged/2limb_6_collision.stl"/>
+    <mesh file="merged/1brackets_2_collision.stl"/>
+    <mesh file="merged/3limb_3_visual.stl"/>
+    <mesh file="merged/1brackets_visual.stl"/>
+    <mesh file="merged/1brackets_3_visual.stl"/>
+    <mesh file="merged/3limb_4_collision.stl"/>
+    <mesh file="merged/2limb_2_collision.stl"/>
+    <mesh file="merged/1brackets_2_visual.stl"/>
+    <mesh file="merged/1brackets_5_collision.stl"/>
+    <material name="body_plate_deepseek_visual_material" rgba="0.532813 0.718744 0.88121 1"/>
+    <material name="body_plate_deepseek_collision_material" rgba="0.532813 0.718744 0.88121 1"/>
+    <material name="1brackets_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="1brackets_2_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_2_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_2_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_2_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_2_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_2_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="1brackets_3_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_3_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_3_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_3_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_3_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_3_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="1brackets_4_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_4_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_4_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_4_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_4_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_4_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="1brackets_5_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_5_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_5_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_5_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_5_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_5_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="1brackets_6_visual_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="1brackets_6_collision_material" rgba="0.618852 0.795146 0.900922 1"/>
+    <material name="2limb_6_visual_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="2limb_6_collision_material" rgba="0.618474 0.797128 0.904321 1"/>
+    <material name="3limb_6_visual_material" rgba="0.56867 0.708799 0.826596 1"/>
+    <material name="3limb_6_collision_material" rgba="0.56867 0.708799 0.826596 1"/>
   </asset>
   <actuator>
     <position class="mujoco" name="1-1" joint="1-1"/>

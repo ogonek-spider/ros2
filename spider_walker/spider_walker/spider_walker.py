@@ -29,8 +29,8 @@ class SpiderWalker(Node):
         self.get_logger().info(f'Spider Walker initialized with {len(self.joint_names)} joints')
         
         # Walking parameters
-        self.step_height = 0.4
-        self.step_length = 0.6
+        self.step_height = 0.5
+        self.step_length = 0.4
 #        self.body_height = 0.15
 #        self.leg_radius = 0.1  # Distance from body center to leg base
         
@@ -190,7 +190,8 @@ class SpiderWalker(Node):
             self.trajectory_pub.publish(trajectory_msg)
             
             # Wait for step to complete
-            time.sleep(step_duration * 1.2)
+            #time.sleep(step_duration * 1.2)
+            time.sleep(step_duration * 1)
         
         # Return to neutral position
         # self.return_to_neutral()
@@ -318,8 +319,9 @@ def main(args=None):
         #     spider_walker.return_to_neutral()
         #     spider_walker.tripod_pose_test(0)
         #     spider_walker.tripod_pose_test(1)
-        return
-        # Then try walking  
+        
+        # Then try walk
+        # ing  
         spider_walker.get_logger().info('Starting walking pattern...')
         while True:
             spider_walker.walk_step(num_steps=1, step_duration=10)

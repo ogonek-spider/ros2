@@ -2,7 +2,8 @@
     <option solver="CG" tolerance="1e-6" timestep="1e-3" integrator="implicitfast"/>
 
     <size memory="512M"/>
-
+    
+    <include file="defaults.xml" />
     <include file="robot.xml" />
 
     <visual>
@@ -18,11 +19,19 @@
             rgb2="0.1 0.2 0.3"
             markrgb="0.8 0.8 0.8" width="300" height="300" />
         <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5"
-            reflectance="0.2" />
+            reflectance="0.2"/>
     </asset>
+ <!--   -->
+  <!-- <option> -->
+    <!-- Adjust contact solver for slightly softer ground (optional) -->
+    <!-- solref: time constant (lower = harder), solimp: penetration limit -->
+    <!-- <contact solref="0.02 1" solimp="0.9 0.95 0.001"/> -->
+  <!-- </option> -->
 
     <worldbody>
         <light pos="0 0 3.5" dir="0 0 -1" directional="true" />
-        <geom name="floor" size="0 0 0.05" pos="0 0 -1.5" type="plane" material="groundplane" />
+        <geom name="floor" size="0 0 0.05" pos="0 0 -1.5" type="plane" material="groundplane" condim="3" friction="0.7 0.005 0.0001" />
     </worldbody>
+
+
 </mujoco>
