@@ -90,10 +90,17 @@ def generate_launch_description():
         )
     )
 
+    joystick_node = Node(
+        package="joystick",
+        executable="joystick_node",
+        name="joystick_node",
+    )
+
     nodes = [
         node_mujoco_ros2_control,
         # control_node,
         robot_state_pub_node,
+        joystick_node,
         joint_state_broadcaster_spawner,
         # delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,

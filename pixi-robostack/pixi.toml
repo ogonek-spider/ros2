@@ -34,9 +34,9 @@ colcon-common-extensions = "*"
 pyqtgraph = "*"
 qwt = "*"
 pythonqwt = "*"
-
 libmujoco = "*"
 mujoco-simulate = "*"
+pip = "*"
 
 [target.linux.dependencies]
 libgl-devel = "*"

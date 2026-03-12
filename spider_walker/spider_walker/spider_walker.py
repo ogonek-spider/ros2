@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
+from rclpy.action import ActionClient
+from control_msgs.action import FollowJointTrajectory
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from builtin_interfaces.msg import Duration
 import numpy as np
@@ -9,15 +11,16 @@ import time
 from pprint import pprint
 from spider_walker.kinematics_solver import HexapodKinematicsSolver
 
+
 class SpiderWalker(Node):
     def __init__(self):
         super().__init__('spider_walker')
         
-        # Create publisher for trajectory commands
-        self.trajectory_pub = self.create_publisher(
-            JointTrajectory,
-            '/spider_controller/joint_trajectory',
-            10
+        # Create action client for trajectory commands
+        self.trajectory_action_client = ActionClient(
+            self,
+            FollowJointTrajectory,
+            '/spider_controller/follow_joint_trajectory'
         )
         
         # Define all 18 joints (6 legs × 3 joints each)
@@ -40,6 +43,9 @@ class SpiderWalker(Node):
 
         self.kinematics = HexapodKinematicsSolver.create_default()
         self.neutral_positions = self.kinematics.NEUTRAL * 6
+        
+        # Current walking direction (degrees, 0 = forward)
+        self.step_angle = 0.0
 
     def create_walking_trajectory(self, phase, step_progress):
         """
@@ -65,36 +71,34 @@ class SpiderWalker(Node):
                       (leg_idx in self.tripod2 and phase == 1)
             
             xyz = self.kinematics.forward(leg_idx, self.kinematics.NEUTRAL)
-
-            # not supper clean, but we need to save leg positions between phases
-            if phase == 1:
-                if is_swing:
-                    xyz[0] -= self.step_length
-                else:
-                    xyz[0] += self.step_length
             
             lift_height = 0
-            step_x = 0
+            step_distance = 0
 
             if is_swing:
                 # Swing leg: Lift, move forward, lower
                 if step_progress < 0.5:
                     # Lift phase
                     lift_height = self.step_height * (step_progress * 2)
-                    #step_x = self.step_length * (step_progress - 1)
                 else:
                     # Lower phase
                     lift_height = self.step_height * (2 - step_progress * 2)
-                    #step_x = self.step_length * (step_progress - 0.5)
-                step_x = self.step_length * step_progress
+                
+                # Centered swing: starts at -step_length/2, ends at +step_length/2
+                step_distance = self.step_length * (step_progress - 0.5)
             else:
-                # Stance leg: Push body forward
-                #step_x = - self.step_length * (2 * step_progress - 1)            
-                step_x = -self.step_length * step_progress
+                # Centered stance: starts at +step_length/2, ends at -step_length/2
+                step_distance = self.step_length * (0.5 - step_progress)
+            
+            # Apply heading angle to get X and Y components
+            angle_rad = math.radians(self.step_angle)
+            step_x = step_distance * math.cos(angle_rad)
+            step_y = step_distance * math.sin(angle_rad)
             
             xyz[0] += step_x
+            xyz[1] += step_y
             xyz[2] += lift_height
-            self.get_logger().info(f'PH {phase} {step_progress*100}% L{leg_idx} {is_swing}: x {step_x}, z {lift_height}')
+            self.get_logger().info(f'PH {phase} {step_progress*100}% L{leg_idx} {is_swing}: dist {step_distance:.2f}, x {step_x:.2f}, y {step_y:.2f}, z {lift_height:.2f}')
             # Calculate joint angles from foot position
             joint_angles = self.kinematics.inverse(leg_idx, xyz)
             positions.extend(joint_angles)
@@ -142,6 +146,76 @@ class SpiderWalker(Node):
         ]
         
         return foot_pos
+        
+    def startup_step(self, step_duration):
+        """Transition smoothly from neutral into the starting pose for walking"""
+        self.get_logger().info('Executing startup step to transition into gait stance')
+        
+        trajectory_msg = JointTrajectory()
+        trajectory_msg.joint_names = self.joint_names
+        
+        # We need 1 motion point that pulls leg groups into their starting phase positions
+        # Without lifting them (they slide into position) or perhaps a slight lift
+        # The first step of walk_step assumes:
+        # Phase 0 progress 0 -> Tripod 1 is at -step_length/2 (about to swing forward)
+        #                    -> Tripod 2 is at +step_length/2 (about to push backward)
+        
+        point = JointTrajectoryPoint()
+        point.time_from_start = Duration(
+            sec=int(step_duration // 1e9),
+            nanosec=int(step_duration % 1e9)
+        )
+        
+        positions = []
+        angle_rad = math.radians(self.step_angle)
+        
+        for leg_idx in range(1, 7):
+            xyz = self.kinematics.forward(leg_idx, self.kinematics.NEUTRAL)
+            
+            # Distance offset based on tripod startup
+            if leg_idx in self.tripod1:
+                dist_offset = -self.step_length * 0.5
+            else:
+                dist_offset = self.step_length * 0.5
+                
+            xyz[0] += dist_offset * math.cos(angle_rad)
+            xyz[1] += dist_offset * math.sin(angle_rad)
+                
+            joint_angles = self.kinematics.inverse(leg_idx, xyz)
+            positions.extend(joint_angles)
+            
+        point.positions = positions
+        point.velocities = [0.0] * len(positions)
+        point.accelerations = [0.0] * len(positions)
+        
+        trajectory_msg.points.append(point)
+        self.send_trajectory_action(trajectory_msg)
+
+    def send_trajectory_action(self, trajectory_msg):        
+        """Send trajectory as an action and wait for completion"""
+        self.get_logger().info('Waiting for action server...')
+        self.trajectory_action_client.wait_for_server()
+        
+        goal_msg = FollowJointTrajectory.Goal()
+        goal_msg.trajectory = trajectory_msg
+        
+        self.get_logger().info('Sending goal request...')
+        send_goal_future = self.trajectory_action_client.send_goal_async(goal_msg)
+        rclpy.spin_until_future_complete(self, send_goal_future)
+        
+        goal_handle = send_goal_future.result()
+        if not goal_handle.accepted:
+            self.get_logger().error('Goal rejected :(')
+            return False
+            
+        self.get_logger().info('Goal accepted :)')
+        
+        get_result_future = goal_handle.get_result_async()
+        rclpy.spin_until_future_complete(self, get_result_future)
+        
+        result = get_result_future.result().result
+        self.get_logger().info(f'Result error code: {result.error_code}')
+        return result.error_code == FollowJointTrajectory.Result.SUCCESSFUL
 
     def walk_step(self, num_steps=4, step_duration=2.0):
         """Execute walking steps"""
@@ -185,14 +259,10 @@ class SpiderWalker(Node):
                 points.append(point)
             trajectory_msg.points = points
             
-            # Publish trajectory
+            # Send trajectory using action client
             #pprint(trajectory_msg.points)
-            self.trajectory_pub.publish(trajectory_msg)
+            self.send_trajectory_action(trajectory_msg)
             
-            # Wait for step to complete
-            #time.sleep(step_duration * 1.2)
-            time.sleep(step_duration * 1)
-        
         # Return to neutral position
         # self.return_to_neutral()
 
@@ -210,9 +280,7 @@ class SpiderWalker(Node):
         point.time_from_start = Duration(sec=2, nanosec=0)
         
         trajectory_msg.points.append(point)
-        self.trajectory_pub.publish(trajectory_msg)
-        
-        time.sleep(2.5)
+        self.send_trajectory_action(trajectory_msg)
 
     def simple_wave_motion(self):
         """Simple wave motion for testing - moves each leg sequentially"""
@@ -243,9 +311,7 @@ class SpiderWalker(Node):
             point3.time_from_start = Duration(sec=2, nanosec=0)
             
             trajectory_msg.points = [point1, point2, point3]            
-            self.trajectory_pub.publish(trajectory_msg)
-            
-            time.sleep(2.5)
+            self.send_trajectory_action(trajectory_msg)
 
     def tripod_pose_test(self, phase):
         trajectory_msg = JointTrajectory()
@@ -295,11 +361,7 @@ class SpiderWalker(Node):
         
         trajectory_msg.points = [point1, point2]#, point3]   
         #pprint(trajectory_msg.points)
-        # self.trajectory_pub.publish(trajectory_msg)
-        # time.sleep(2.5)
-        self.trajectory_pub.publish(trajectory_msg)
-            
-        time.sleep(2)
+        self.send_trajectory_action(trajectory_msg)
 
 
 def main(args=None):
@@ -308,9 +370,7 @@ def main(args=None):
     spider_walker = SpiderWalker()
     
     try:
-        spider_walker.return_to_neutral()      
-        spider_walker.return_to_neutral()        
-        time.sleep(2)
+        spider_walker.return_to_neutral()  
         # Test with simple motion first
         #spider_walker.get_logger().info('Testing with simple wave motion...')
         # spider_walker.simple_wave_motion()
@@ -323,8 +383,34 @@ def main(args=None):
         # Then try walk
         # ing  
         spider_walker.get_logger().info('Starting walking pattern...')
+        
+        # Try walking forward (0 degrees)
+        spider_walker.step_angle = 0.0
+        spider_walker.startup_step(step_duration=2e9)
+        spider_walker.walk_step(num_steps=2, step_duration=3)
+        
+        # Walk right (90 degrees or -90 degrees depending on axis frame)
+        # Assuming typical ROS: X forward, Y left. So -90 is Right.
+        spider_walker.get_logger().info('Walking Right...')
+        spider_walker.step_angle = -90.0
+        spider_walker.startup_step(step_duration=2e9)
+        spider_walker.walk_step(num_steps=2, step_duration=3)
+        
+        # Walk left
+        spider_walker.get_logger().info('Walking Left...')
+        spider_walker.step_angle = 90.0
+        spider_walker.startup_step(step_duration=2e9)
+        spider_walker.walk_step(num_steps=2, step_duration=3)
+        
+        # Walk backward
+        spider_walker.get_logger().info('Walking Backward...')
+        spider_walker.step_angle = 180.0
+        spider_walker.startup_step(step_duration=2e9)
+        spider_walker.walk_step(num_steps=2, step_duration=3)
+        
         while True:
-            spider_walker.walk_step(num_steps=1, step_duration=10)
+            spider_walker.step_angle = 0.0
+            spider_walker.walk_step(num_steps=1, step_duration=3)
         #spider_walker.walk_step(num_steps=1, step_duration=300.0)
         
     except KeyboardInterrupt:
