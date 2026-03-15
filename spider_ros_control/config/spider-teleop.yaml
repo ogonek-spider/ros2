@@ -1,0 +1,16 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    require_enable_button: false
+
+    axis_linear:
+      x: 1   # left stick vertical  -> forward/back
+      y: 0   # left stick horizontal -> strafe left/right
+    scale_linear:
+      x: 1.0
+      y: 1.0
+
+    # no angular mapping — spider_walker handles direction from linear x/y
+    axis_angular:
+      yaw: 3  # right stick horizontal (unused by walker, kept for future)
+    scale_angular:
+      yaw: 0.0

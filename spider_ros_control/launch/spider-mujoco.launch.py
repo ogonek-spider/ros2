@@ -94,19 +94,18 @@ def generate_launch_description():
         package='joy', executable='joy_node', name='joy_node',
         parameters=[{
             'deadzone': 0.1,
-#            'autorepeat_rate': 20.0,
+            'autorepeat_rate': 20.0,
         }],
     )
 
     teleop_node = Node(
         package="teleop_twist_joy",
         executable="teleop_node",
-        name="joy_to_cmd_vel_node",
-        arguments=["joy_config", "xbox"],
+        name="teleop_twist_joy_node",
         parameters=[
-            {
-                'require_enable_button': False,
-            }
+            PathJoinSubstitution([
+                FindPackageShare('spider_ros_control'), 'config', 'spider-teleop.yaml'
+            ]),
         ],
     )
 
@@ -118,20 +117,12 @@ def generate_launch_description():
 
     nodes = [
         node_mujoco_ros2_control,
-        # control_node,
         robot_state_pub_node,        
         joint_state_broadcaster_spawner,        
-        # delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         joy_node,
         teleop_node,
         spider_walker
-        # robot_controller_spawner
-        # Node(
-        #     package='joint_state_publisher_gui',
-        #     executable='joint_state_publisher_gui',
-        #     name='joint_state_publisher_gui'
-        # ),        
     ]
 
     return LaunchDescription(nodes)
