@@ -1,7 +1,18 @@
-https://robostack.github.io/GettingStarted.html
 
-pixi shell -e kilted
+# installation
+cd pixi-robostack && pixi shell -e kilted && cd ..
+pip install hidapi
+colcon build
 source install/local_setup.zsh 
+
+# launch
+ros2 launch spider_ros_control spider-mujoco.launch.py
+
+
+
+======
+
+https://robostack.github.io/GettingStarted.html
 
 pixi search -c https://prefix.dev/robostack-kilted "*plugin*"
 

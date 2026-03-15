@@ -4,6 +4,7 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 from control_msgs.action import FollowJointTrajectory
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from geometry_msgs.msg import Twist
 from builtin_interfaces.msg import Duration
 import numpy as np
 import math
@@ -13,39 +14,100 @@ from spider_walker.kinematics_solver import HexapodKinematicsSolver
 
 
 class SpiderWalker(Node):
+    # States for the non-blocking state machine
+    IDLE = 'idle'
+    STARTUP = 'startup'
+    WALKING = 'walking'
+    RETURNING = 'returning'
+
     def __init__(self):
         super().__init__('spider_walker')
-        
+
         # Create action client for trajectory commands
         self.trajectory_action_client = ActionClient(
             self,
             FollowJointTrajectory,
             '/spider_controller/follow_joint_trajectory'
         )
-        
+
         # Define all 18 joints (6 legs × 3 joints each)
         self.joint_names = []
         for leg in range(1, 7):
             for joint in range(1, 4):
                 self.joint_names.append(f'{leg}-{joint}')
-        
+
         self.get_logger().info(f'Spider Walker initialized with {len(self.joint_names)} joints')
-        
+
         # Walking parameters
         self.step_height = 0.5
         self.step_length = 0.4
 #        self.body_height = 0.15
 #        self.leg_radius = 0.1  # Distance from body center to leg base
-        
+
         # Leg groups for tripod gait
         self.tripod1 = [1, 3, 5]
         self.tripod2 = [2, 4, 6]
 
         self.kinematics = HexapodKinematicsSolver.create_default()
         self.neutral_positions = self.kinematics.NEUTRAL * 6
-        
+
         # Current walking direction (degrees, 0 = forward)
         self.step_angle = 0.0
+
+        # Velocity Tracking
+        self.cmd_linear_x = 0.0
+        self.cmd_linear_y = 0.0
+        self.cmd_angular_z = 0.0
+
+        # State machine
+        self.state = self.IDLE
+        self._action_in_flight = False
+
+        # Subscriber setup
+        self.cmd_vel_sub = self.create_subscription(
+            Twist,
+            '/cmd_vel',
+            self.cmd_vel_callback,
+            10)
+
+        # Control timer (runs frequently to check if we need to take a step)
+        self.timer = self.create_timer(0.1, self.timer_callback)
+
+    def cmd_vel_callback(self, msg):
+        self.cmd_linear_x = msg.linear.x
+        self.cmd_linear_y = msg.linear.y
+        self.cmd_angular_z = msg.angular.z
+
+    def timer_callback(self):
+        # Don't issue a new command while an action is still in flight
+        if self._action_in_flight:
+            return
+
+        moving_now = (abs(self.cmd_linear_x) > 0.05 or
+                      abs(self.cmd_linear_y) > 0.05 or
+                      abs(self.cmd_angular_z) > 0.05)
+
+        if moving_now:
+            rad = math.atan2(self.cmd_linear_y, self.cmd_linear_x)
+            self.step_angle = math.degrees(rad)
+
+            if self.state == self.IDLE:
+                self.get_logger().info('Starting movement: transitioning to stance...')
+                self.state = self.STARTUP
+                self.startup_step(step_duration=1.0)
+            elif self.state == self.STARTUP:
+                # startup just finished (action_in_flight is False), move to walking
+                self.state = self.WALKING
+                self.walk_step(num_steps=1, step_duration=1.5)
+            elif self.state == self.WALKING:
+                self.walk_step(num_steps=1, step_duration=1.5)
+        else:
+            if self.state in (self.STARTUP, self.WALKING):
+                self.get_logger().info('Stopping movement: returning to neutral...')
+                self.state = self.RETURNING
+                self.return_to_neutral()
+            elif self.state == self.RETURNING:
+                self.state = self.IDLE
 
     def create_walking_trajectory(self, phase, step_progress):
         """
@@ -162,8 +224,8 @@ class SpiderWalker(Node):
         
         point = JointTrajectoryPoint()
         point.time_from_start = Duration(
-            sec=int(step_duration // 1e9),
-            nanosec=int(step_duration % 1e9)
+            sec=int(step_duration),
+            nanosec=int((step_duration % 1) * 1e9)
         )
         
         positions = []
@@ -191,31 +253,33 @@ class SpiderWalker(Node):
         trajectory_msg.points.append(point)
         self.send_trajectory_action(trajectory_msg)
 
-    def send_trajectory_action(self, trajectory_msg):        
-        """Send trajectory as an action and wait for completion"""
-        self.get_logger().info('Waiting for action server...')
-        self.trajectory_action_client.wait_for_server()
-        
+    def send_trajectory_action(self, trajectory_msg):
+        """Send trajectory as a non-blocking action. Sets _action_in_flight=True until done."""
+        if not self.trajectory_action_client.wait_for_server(timeout_sec=1.0):
+            self.get_logger().error('Action server not available')
+            return
+
         goal_msg = FollowJointTrajectory.Goal()
         goal_msg.trajectory = trajectory_msg
-        
-        self.get_logger().info('Sending goal request...')
+
+        self._action_in_flight = True
         send_goal_future = self.trajectory_action_client.send_goal_async(goal_msg)
-        rclpy.spin_until_future_complete(self, send_goal_future)
-        
-        goal_handle = send_goal_future.result()
+        send_goal_future.add_done_callback(self._goal_response_callback)
+
+    def _goal_response_callback(self, future):
+        goal_handle = future.result()
         if not goal_handle.accepted:
-            self.get_logger().error('Goal rejected :(')
-            return False
-            
-        self.get_logger().info('Goal accepted :)')
-        
-        get_result_future = goal_handle.get_result_async()
-        rclpy.spin_until_future_complete(self, get_result_future)
-        
-        result = get_result_future.result().result
+            self.get_logger().error('Goal rejected')
+            self._action_in_flight = False
+            return
+        self.get_logger().info('Goal accepted')
+        result_future = goal_handle.get_result_async()
+        result_future.add_done_callback(self._result_callback)
+
+    def _result_callback(self, future):
+        result = future.result().result
         self.get_logger().info(f'Result error code: {result.error_code}')
-        return result.error_code == FollowJointTrajectory.Result.SUCCESSFUL
+        self._action_in_flight = False
 
     def walk_step(self, num_steps=4, step_duration=2.0):
         """Execute walking steps"""
@@ -282,87 +346,6 @@ class SpiderWalker(Node):
         trajectory_msg.points.append(point)
         self.send_trajectory_action(trajectory_msg)
 
-    def simple_wave_motion(self):
-        """Simple wave motion for testing - moves each leg sequentially"""
-        self.get_logger().info('Starting simple wave motion')
-        
-        for leg in range(6):
-            trajectory_msg = JointTrajectory()
-            trajectory_msg.joint_names = self.joint_names
-            
-            # Start from neutral
-            point1 = JointTrajectoryPoint()
-            point1.positions = self.neutral_positions
-            point1.time_from_start = Duration(sec=0, nanosec=0)
-            
-            # Move one leg
-            point2 = JointTrajectoryPoint()
-            positions = self.neutral_positions.copy()
-            leg_offset = leg * 3
-            positions[leg_offset] += 0.5  # Rotate base joint
-            positions[leg_offset + 2] -= 1.5  # Lift knee
-            
-            point2.positions = positions
-            point2.time_from_start = Duration(sec=1, nanosec=0)
-            
-            # Return to neutral
-            point3 = JointTrajectoryPoint()
-            point3.positions = self.neutral_positions
-            point3.time_from_start = Duration(sec=2, nanosec=0)
-            
-            trajectory_msg.points = [point1, point2, point3]            
-            self.send_trajectory_action(trajectory_msg)
-
-    def tripod_pose_test(self, phase):
-        trajectory_msg = JointTrajectory()
-        trajectory_msg.joint_names = self.joint_names
-        
-        # Start from neutral
-        point1 = JointTrajectoryPoint()
-        point1.positions = self.neutral_positions
-        point1.time_from_start = Duration(sec=0, nanosec=0)
-        
-        point2 = JointTrajectoryPoint()
-        positions = list(self.neutral_positions)
-
-        if phase == 0:
-            swing_legs = [2, 4, 6]
-        else:
-            swing_legs = [1, 3, 5]
- 
-        for leg in range(1, 7):            
-            leg_offset = (leg - 1) * 3
-            xyz = self.kinematics.forward(leg, self.kinematics.NEUTRAL)
-            if leg in swing_legs:
-                xyz[2] += self.step_height                
-                xyz[0] += self.step_length
-                pass
-            else:
-                xyz[0] -= self.step_length
-                pass
-            angles = self.kinematics.inverse(leg, xyz)
-            positions[leg_offset] = angles[0]
-            positions[leg_offset + 1] = angles[1]
-            positions[leg_offset + 2] = angles[2]
-        
-        point2.positions = positions
-        point2.time_from_start = Duration(sec=0, nanosec=500000000)
-        
-        # # Return to neutral
-        point3 = JointTrajectoryPoint()
-        point3.positions = point2.positions
-        for leg in range(1, 7):            
-            leg_offset = (leg - 1) * 3
-            if leg in swing_legs:
-                positions[leg_offset + 2] += 1.5 #put need on the ground
-            else:
-                positions[leg_offset] -= 0.5
-        point3.time_from_start = Duration(sec=0, nanosec=1000000000)
-        
-        trajectory_msg.points = [point1, point2]#, point3]   
-        #pprint(trajectory_msg.points)
-        self.send_trajectory_action(trajectory_msg)
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -370,54 +353,18 @@ def main(args=None):
     spider_walker = SpiderWalker()
     
     try:
-        spider_walker.return_to_neutral()  
-        # Test with simple motion first
-        #spider_walker.get_logger().info('Testing with simple wave motion...')
-        # spider_walker.simple_wave_motion()
-        #spider_walker.tripod_pose_test(0)
-        # while True:
-        #     spider_walker.return_to_neutral()
-        #     spider_walker.tripod_pose_test(0)
-        #     spider_walker.tripod_pose_test(1)
+        spider_walker.return_to_neutral()
+        spider_walker.get_logger().info('Spider Walker is ready and listening to /cmd_vel...')
         
-        # Then try walk
-        # ing  
-        spider_walker.get_logger().info('Starting walking pattern...')
-        
-        # Try walking forward (0 degrees)
-        spider_walker.step_angle = 0.0
-        spider_walker.startup_step(step_duration=2e9)
-        spider_walker.walk_step(num_steps=2, step_duration=3)
-        
-        # Walk right (90 degrees or -90 degrees depending on axis frame)
-        # Assuming typical ROS: X forward, Y left. So -90 is Right.
-        spider_walker.get_logger().info('Walking Right...')
-        spider_walker.step_angle = -90.0
-        spider_walker.startup_step(step_duration=2e9)
-        spider_walker.walk_step(num_steps=2, step_duration=3)
-        
-        # Walk left
-        spider_walker.get_logger().info('Walking Left...')
-        spider_walker.step_angle = 90.0
-        spider_walker.startup_step(step_duration=2e9)
-        spider_walker.walk_step(num_steps=2, step_duration=3)
-        
-        # Walk backward
-        spider_walker.get_logger().info('Walking Backward...')
-        spider_walker.step_angle = 180.0
-        spider_walker.startup_step(step_duration=2e9)
-        spider_walker.walk_step(num_steps=2, step_duration=3)
-        
-        while True:
-            spider_walker.step_angle = 0.0
-            spider_walker.walk_step(num_steps=1, step_duration=3)
-        #spider_walker.walk_step(num_steps=1, step_duration=300.0)
+        # Spin keeps the node alive, timers, and callbacks running
+        rclpy.spin(spider_walker)
         
     except KeyboardInterrupt:
         spider_walker.get_logger().info('Shutting down...')
     finally:
+        spider_walker.return_to_neutral()
         spider_walker.destroy_node()
-        rclpy.shutdown()
+        rclpy.try_shutdown()
 
 if __name__ == '__main__':
     main()

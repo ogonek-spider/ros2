@@ -90,20 +90,42 @@ def generate_launch_description():
         )
     )
 
-    joystick_node = Node(
-        package="joystick",
-        executable="joystick_node",
-        name="joystick_node",
+    joy_node = Node(
+        package='joy', executable='joy_node', name='joy_node',
+        parameters=[{
+            'deadzone': 0.1,
+#            'autorepeat_rate': 20.0,
+        }],
+    )
+
+    teleop_node = Node(
+        package="teleop_twist_joy",
+        executable="teleop_node",
+        name="joy_to_cmd_vel_node",
+        arguments=["joy_config", "xbox"],
+        parameters=[
+            {
+                'require_enable_button': False,
+            }
+        ],
+    )
+
+    spider_walker = Node(
+        package="spider_walker",
+        executable="walker",
+        name="spider_walker",
     )
 
     nodes = [
         node_mujoco_ros2_control,
         # control_node,
-        robot_state_pub_node,
-        joystick_node,
-        joint_state_broadcaster_spawner,
+        robot_state_pub_node,        
+        joint_state_broadcaster_spawner,        
         # delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        joy_node,
+        teleop_node,
+        spider_walker
         # robot_controller_spawner
         # Node(
         #     package='joint_state_publisher_gui',
