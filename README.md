@@ -1,7 +1,8 @@
 
 # installation
+put twai_proto https://github.com/ogonek-spider/twaiproto to ../libs/lib/twai_proto
+
 cd pixi-robostack && pixi shell -e kilted && cd ..
-pip install hidapi
 colcon build
 source install/local_setup.zsh 
 
