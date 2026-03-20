@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "/Users/alarin/Documents/art/ogonek25-spider/ros2/spider_description"
+    "cmake.sourceDirectory": "/Users/alarin/Documents/art/ogonek25-spider/ros2/spider_description",
+    "python.defaultInterpreterPath": "${workspaceFolder}/pixi-robostack/.pixi/envs/kilted/bin/python",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/pixi-robostack/.pixi/envs/kilted/lib/python3.12/site-packages"
+    ]
 }
