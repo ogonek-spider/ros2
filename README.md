@@ -1,5 +1,8 @@
 
 # installation
+
+Windows: установка через WSL2 — см. [docs/wsl2-setup.md](docs/wsl2-setup.md)
+
 put twai_proto https://github.com/ogonek-spider/twaiproto to ../libs/lib/twai_proto
 
 cd pixi-robostack && pixi shell -e kilted && cd ..
