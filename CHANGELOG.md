@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-04-10
+### Added
+- VSCode build task (`.vscode/tasks.json`) — *Spider: launch Mujoco simulation (WSL)*, marked as the default build task and bound to `Ctrl+Shift+B`. It calls `wsl.exe` to enter `/home/spider/projects/ogonek-spider/ros2`, activates the `pixi -e kilted` environment, sources `install/local_setup.bash`, and runs `ros2 launch spider_ros_control spider-mujoco.launch.py`.
+- Pre-launch task *Spider: sync sources to WSL*: before each simulation run it rsyncs the working copy from `/mnt/c/Users/user/vs_code_projects/ogonek-spider/ros2/` to the WSL clone at `/home/spider/projects/ogonek-spider/ros2/` (excluding `.git`, `build/`, `install/`, `log/`, the pixi cache, `__pycache__`, `.vscode`, `*.zip`). After the sync the launch task runs an incremental `colcon build --symlink-install`, so URDF/MJCF/Python edits take effect without manual rebuilds or commits.
+- The Mujoco scene now uses a heightfield terrain (`Rolling Hills`) instead of a flat floor. The heightmap is unpacked into `spider_description/mujoco/assets/rolling_hills/` and wired up via `<hfield>` in `scene.xml` (30×30 m area, max height 0.6 m).
+
+## [0.0.38] - 2026-04-10
 
 ### Added
 - Windows support via WSL2 (Ubuntu 24.04).

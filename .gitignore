@@ -3,3 +3,16 @@ build
 log
 install
 
+# Claude Code: commit commands/skills, ignore local settings and plans
+.claude/*
+!.claude/commands/
+!.claude/commands/**
+.claude/settings.json
+.claude/settings.local.json
+.claude/plans/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/

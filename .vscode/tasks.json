@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Spider: sync sources to WSL",
+            "type": "process",
+            "command": "wsl.exe",
+            "args": [
+                "-d", "Ubuntu-24.04",
+                "--", "bash", "-lc",
+                "set -e && rsync -a --delete --info=stats1 --exclude=.git/ --exclude=build/ --exclude=install/ --exclude=log/ --exclude=pixi-robostack/.pixi/ --exclude=__pycache__/ --exclude=*.pyc --exclude=.vscode/ --exclude=*.zip /mnt/c/Users/user/vs_code_projects/ogonek-spider/ros2/ /home/spider/projects/ogonek-spider/ros2/"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            "label": "Spider: launch Mujoco simulation (WSL)",
+            "type": "process",
+            "command": "wsl.exe",
+            "args": [
+                "-d", "Ubuntu-24.04",
+                "--", "bash", "-lc",
+                "cd /home/spider/projects/ogonek-spider/ros2/pixi-robostack && ~/.pixi/bin/pixi run -e kilted bash -c \"cd .. && colcon build --symlink-install && source install/local_setup.bash && ros2 launch spider_ros_control spider-mujoco.launch.py\""
+            ],
+            "dependsOn": ["Spider: sync sources to WSL"],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}
